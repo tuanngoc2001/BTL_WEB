@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32126.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Common", "Web.Common\Web.Common.csproj", "{2267B326-97E1-4823-AFC4-39D4B5F38DC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_Common", "Web.Common\Web_Common.csproj", "{2267B326-97E1-4823-AFC4-39D4B5F38DC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Business", "Web.Business\Web.Business.csproj", "{83080AC7-B6BA-48CB-9A18-A9047AA53A71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_Business", "Web.Business\Web_Business.csproj", "{83080AC7-B6BA-48CB-9A18-A9047AA53A71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Data", "Web.Data\Web.Data.csproj", "{7539C40D-3174-40C2-A7DC-31AF12836216}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_Data", "Web.Data\Web_Data.csproj", "{7539C40D-3174-40C2-A7DC-31AF12836216}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.API.v1", "Web.API.v1\Web.API.v1.csproj", "{AFA06FBC-8309-4A08-9498-4F415E15D875}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_API_v1", "Web.API.v1\Web_API_v1.csproj", "{AFA06FBC-8309-4A08-9498-4F415E15D875}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{351E2276-03D8-43F4-9E51-9A38BBEA4399}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{351E2276-03D8-43F4-9E51-9A38BBEA4399}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

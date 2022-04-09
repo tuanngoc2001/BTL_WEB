@@ -1,10 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Web.Common.Utils;
 using Web.Data.Data;
 
 namespace Web.Data.EF
@@ -15,7 +9,7 @@ namespace Web.Data.EF
         {
 
         }
-        private static string ConnectionString=Utils.GetConfig("ConnectionStrings:MyDb");
+        private static string ConnectionString= Common.Utils.Utils.GetConfig("ConnectionStrings:MyDb");
         public virtual DbSet<BinhLuan> im_Comment { get; set; }
         public virtual DbSet<ChiTietHoaDon> im_Invoice_Detail { get; set; }
         public virtual DbSet<DanhMuc> im_Category { get; set; }

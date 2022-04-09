@@ -1,0 +1,53 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!--banner-->
+<div class="banner1">
+    <div class="container">
+        <h3><a asp-area="" asp-controller="Home" asp-action="Index">Home</a> / <span>Login</span></h3>
+    </div>
+</div>
+<!--banner-->
+<!--content-->
+<div class="content">
+    <!--login-->
+    <!--<div class="login">
+        <div class="main-agileits">
+            <div class="form-w3agile">
+                <h3>Login To New Shop</h3>
+                <form action="#" method="post">
+                    <div class="key">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <input type="text" value="Email" name="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="key">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                        <input type="password" value="Password" name="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
+                        <div class="clearfix"></div>
+                    </div>
+                    <input type="submit" value="Login">
+                </form>
+            </div>
+            <div class="forg">
+                <a href="#" class="forg-left">Forgot Password</a>
+                <a href="~/user/pages/registered" class="forg-right">Register</a>
+                <div class="clearfix"></div>
+            </div>
+            <div id="fb-root">
+        </div>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v9.0&appId=250620996446716&autoLogAppEvents=1" nonce="P7yrjRmc"></script>-->
+    @*@<div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>*@
+    <!--<fb:login-button scope="public_profile,email"
+                    onlogin="checkLoginState();">
+        </fb:login-button>
+    </div>
+
+    </div>-->
+    @await Component.InvokeAsync("Login")
+
+    <!--login-->
+</div>
+

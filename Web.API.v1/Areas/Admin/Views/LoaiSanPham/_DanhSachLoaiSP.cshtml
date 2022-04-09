@@ -1,0 +1,42 @@
+﻿@model IEnumerable<DoAn_ASPNETCORE.Areas.Admin.Models.LoaiSanPhamModel>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenLoai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaNCC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThai)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <div id="dsloaisp">
+            @foreach (var item in ViewBag.DsLoaiSP)
+            {
+            <tr>
+                <td>
+                    @item.TenLoai
+                </td>
+                <td>
+                    @item.NhaCungCap
+                </td>
+                <td>
+                    @item.TrangThai
+                </td>
+                <td>
+                    <button type="button" name="edit_loaisanpham" data-idloaisp="@item.ID" class="btn btn-primary" data-toggle="modal" data-target="#EditModal">Edit</button>
+                    <button type="button" name="edit_loaisanpham" data-idloaisp="20" class="btn btn-primary" data-toggle="modal" data-target="#EditModal">Edit</button>
+                    <button type="button" name="btn_delete_loaisanpham" data-idloaisp="@item.ID" class="btn btn-danger">Delete</button>
+                    <button type="button" name="btn_delete_loaisanpham" data-idloaisp="20" class="btn btn-danger">Delete</button>
+
+                </td>
+            </tr>
+        }
+            </div>
+        </tbody>
+    </table>

@@ -1,0 +1,479 @@
+﻿
+@model DoAn_ASPNETCORE.Areas.Admin.Models.ChiTietHoaDonModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div id="successModal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE876;</i>
+                </div>
+                <h4 class="modal-title w-100">Thêm Thành Công!</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="margin-left:90px;" name="btn_ok" class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="deleteModal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box" style="background:#b22222">
+                    <i class="material-icons">&#xE872;</i>
+                </div>
+                <h4 class="modal-title w-100">Xóa Thành Công!</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="margin-left:90px;background:#b22222" name="btn_ok" class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="updateModal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box" style="background:#3205cd">
+                    <i class="material-icons">&#xE86A;</i>
+                </div>
+                <h4 class="modal-title w-100">Cập Nhật Thành Công!</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="margin-left:90px;background:#3205cd" name="btn_ok" class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm Chi Tiet Hoa Don</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="HoaDon_ID" class="control-label"></label>
+                        <select asp-for="HoaDon_ID" id="hoadon_id" class="form-control" asp-items="ViewBag.HoaDon"></select>
+                        @*<select asp-for="TenSP" id="tensp" class="form-control" asp-items="ViewBag.HoaDon"></select>*@
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TenSP" class="control-label"></label>
+                        @*<input id="tensp" asp-for="TenSP" class="form-control" />*@
+                        <select asp-for="TenSP" id="tensp" class="form-control" asp-items="ViewBag.SanPham"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SoLuong" class="control-label"></label>
+                        <input id="soluong" asp-for="SoLuong" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Gia" class="control-label"></label>
+                        @*<input id="gia" asp-for="Gia" class="form-control" />*@
+                        <select asp-for="Gia" id="gia" class="form-control" asp-items="ViewBag.SanPham1"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="KhuyenMai" class="control-label"></label>
+                        <input id="khuyenmai" asp-for="KhuyenMai" class="form-control" />
+                        <span class="text-danger">@Html.ValidationMessageFor(model => model.KhuyenMai)</span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ThanhTien" class="control-label"></label>
+                        <input asp-for="ThanhTien" id="thanhtien" class="form-control" />
+                        <span class="text-danger">@Html.ValidationMessageFor(model => model.ThanhTien)</span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TrangThai" class="control-label"></label>
+                        <input asp-for="TrangThai" id="trangthai" class="form-control" />
+                        <span class="text-danger">@Html.ValidationMessageFor(model => model.TrangThai)</span>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" name="btn_create_chitiethoadon" class="btn btn-primary">Thêm Mới</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sửa loại sản phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" id="edit_id" asp-for="ID" />
+                    <div class="form-group">
+                        <label asp-for="TenSP" class="control-label"></label>
+                        <input asp-for="TenSP" id="edit_tensp" class="form-control" />
+                        <span class="text-danger">@Html.ValidationMessageFor(model => model.TenSP)</span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SoLuong" class="control-label"></label>
+                        <input asp-for="SoLuong" id="edit_soluong" class="form-control" />
+                        <span asp-validation-for="SoLuong" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Gia" class="control-label"></label>
+                        <input asp-for="Gia" id="edit_gia" class="form-control" />
+                        <span class="text-danger">@Html.ValidationMessageFor(model => model.Gia)</span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="KhuyenMai" class="control-label"></label>
+                        <input asp-for="KhuyenMai" id="edit_khuyenmai" class="form-control" />
+                        <span class="text-danger">@Html.ValidationMessageFor(model => model.KhuyenMai)</span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ThanhTien" class="control-label"></label>
+                        <input asp-for="ThanhTien" id="edit_thanhtien" class="form-control" />
+                        <span class="text-danger">@Html.ValidationMessageFor(model => model.ThanhTien)</span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TrangThai" class="control-label"></label>
+                        <input asp-for="TrangThai" id="edit_trangthai" class="form-control" />
+                        <span class="text-danger">@Html.ValidationMessageFor(model => model.TrangThai)</span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" name="btn_update_chitiethoadon" class="btn btn-primary">Cập Nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrapper">
+    <div class="sidebar" data-image="../../admin/img/sidebar-5.jpg">
+        <!--
+            Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
+
+            Tip 2: you can also add an image using data-image tag
+        -->
+        <div class="sidebar-wrapper">
+            <div class="logo">
+                <a href="http://www.creative-tim.com" class="simple-text">
+                    Creative Tim
+                </a>
+            </div>
+            <ul class="nav">
+                <li>
+                    <a class="nav-link" href="~/Admin/sanpham/index">
+                        <i class="nc-icon nc-app"></i>
+                        <p>Sản Phẩm</p>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="~/Admin/loaisanpham/index">
+                        <i class="nc-icon nc-paper-2"></i>
+                        <p>Loại Sản Phẩm</p>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="~/Admin/nhacungcap/index">
+                        <i class="nc-icon nc-delivery-fast"></i>
+                        <p>Nhà Cung Cấp</p>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="~/Admin/user/index">
+                        <i class="nc-icon nc-circle-09"></i>
+                        <p>User</p>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="~/Admin/hoadon/index">
+                        <i class="nc-icon nc-paper-2"></i>
+                        <p>Hóa Đơn</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/Admin/chitiethoadon/index">
+                        <i class="nc-icon nc-notes"></i>
+                        <p>Chi Tiết Hóa Đơn</p>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="~/Admin/danhmuc/index">
+                        <i class="nc-icon nc-chart-bar-32"></i>
+                        <p>Danh Mục</p>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="~/Admin/binhluan/index">
+                        <i class="nc-icon nc-chat-round"></i>
+                        <p>Bình Luận</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg " color-on-scroll="500">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#pablo">User</a>
+                <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-bar burger-lines"></span>
+                    <span class="navbar-toggler-bar burger-lines"></span>
+                    <span class="navbar-toggler-bar burger-lines"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                    <ul class="nav navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="dropdown">
+                                <i class="nc-icon nc-palette"></i>
+                                <span class="d-lg-none">User</span>
+                            </a>
+                        </li>
+                        <li class="dropdown nav-item">
+                            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                <i class="nc-icon nc-planet"></i>
+                                <span class="notification">5</span>
+                                <span class="d-lg-none">Notification</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Notification 1</a>
+                                <a class="dropdown-item" href="#">Notification 2</a>
+                                <a class="dropdown-item" href="#">Notification 3</a>
+                                <a class="dropdown-item" href="#">Notification 4</a>
+                                <a class="dropdown-item" href="#">Another notification</a>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nc-icon nc-zoom-split"></i>
+                                <span class="d-lg-block">&nbsp;Search</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#pablo">
+                                <span class="no-icon">Account</span>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="no-icon">Dropdown</span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                                <div class="divider"></div>
+                                <a class="dropdown-item" href="#">Separated link</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#pablo">
+                                <span class="no-icon">Log out</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4">
+
+                        <p>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddModal">Thêm</button>
+                        </p>
+
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.HoaDon_ID)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TenSP)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SoLuong)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Gia)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.KhuyenMai)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ThanhTien)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TrangThai)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.CTHD)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.HoaDon_ID
+                                        </td>
+                                        <td>
+                                            @item.TenSP
+                                        </td>
+                                        <td>
+                                            @item.SoLuong
+                                        </td>
+                                        <td>
+                                            @item.Gia
+                                        </td>
+                                        <td>
+                                            @item.KhuyenMai
+                                        </td>
+                                        <td>
+                                            @item.ThanhTien
+                                        </td>
+                                        <td>
+                                            @item.TrangThai
+                                        </td>
+                                        <td>
+                                            <button type="button" name="edit_chitiethoadon" data-idchitiethoadon="@item.ID" class="btn btn-primary" data-toggle="modal" data-target="#EditModal">Edit</button>
+                                            <button type="button" name="btn_delete_chitiethoadon" data-idchitiethoadon="@item.ID" class="btn btn-danger">Delete</button>
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @section Scripts{
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+            <script>
+                function addChiTietHoaDon() {
+                    var insert = {};
+                    insert.HoaDon_ID = parseInt($("#hoadon_id").val());
+                    insert.TenSP = $("#tensp").val();
+                    insert.SoLuong = $("#soluong").val();
+                    insert.Gia = $("#gia").val();
+                    insert.KhuyenMai = parseInt($("#khuyenmai").val())
+                    insert.ThanhTien = parseInt($("#thanhtien").val())
+                    insert.TrangThai = parseInt($("#trangthai").val())
+                    $.ajax({
+                        url: "../../api/ChiTietHoaDonApi/PostChiTietHoaDonModel",
+                        type: "POST",
+                        contentType: "Application/json;charset-utf-8",
+                        data: JSON.stringify(insert),
+                        dataType: "json"
+                    }).done(function (reponse) {
+                        $("#AddModal").modal('hide');
+                        $("#successModal").modal('show');
+
+                    }).fail(function () {
+                        alert('Thất bại !');
+                    });
+                }
+                function getChiTietHoaDon(id) {
+                    $.ajax({
+                        url: "../../api/ChiTietHoaDonApi/GetChiTietHoaDonModel/" + id,
+                        type: "GET",
+                        contentType: "Application/json;charset-utf-8",
+                        dataType: "json"
+                    }).done(function (reponse) {
+                        $("#edit_id").val(reponse.id);
+                        $("#edit_tensp").val(reponse.tenSP);
+                        $("#edit_soluong").val(reponse.soLuong);
+                        $("#edit_gia").val(reponse.gia);
+                        $("#edit_khuyenmai").val(reponse.khuyenMai);
+                        $("#edit_thanhtien").val(reponse.thanhTien);
+                        $("#edit_trangthai").val(reponse.trangThai);
+
+                    }).fail(function () {
+                        alert('Thất bại !');
+                    });
+                }
+                function updateChiTietHoaDon(id) {
+                    var update = {}
+                    update.HoaDon_ID = parseInt(id);
+                    update.ID = parseInt(id);
+                    update.TenSP = $("#edit_tensp").val();
+                    update.SoLuong = $("#edit_soluong").val();
+                    update.Gia = $("#edit_gia").val();
+                    update.KhuyenMai = parseInt($("#edit_khuyenmai").val());
+                    update.ThanhTien = parseInt($("#edit_thanhtien").val());
+                    update.TrangThai = parseInt($("#edit_trangthai").val());
+                    $.ajax({
+                        url: "../../api/ChiTietHoaDonApi/PutChiTietHoaDonModel/" + id,
+                        type: "PUT",
+                        contentType: "Application/json;charset-utf-8",
+                        data: JSON.stringify(update),
+                        dataType: "json"
+                    }).done(function (reponse) {
+                        $("#EditModal").modal('hide');
+                        $("#updateModal").modal('show');
+
+                    }).fail(function () {
+                        alert('Thất bại !');
+                    });
+                }
+                function deleteChiTietHoaDon(id) {
+
+                    $.ajax({
+                        url: "../../api/ChiTietHoaDonApi/DeleteChiTietHoaDonModel/" + id,
+                        type: "DELETE",
+                        contentType: "Application/json;charset-utf-8",
+                        dataType: "json"
+                    }).done(function (reponse) {
+                        $("#deleteModal").modal('show');
+
+
+                    }).fail(function () {
+                        alert('Thất bại !');
+                    });
+                }
+                $(document).ready(function () {
+                    $('button[name=btn_create_chitiethoadon]').click(function (e) {
+                        addChiTietHoaDon();
+                        e.preventDefault();
+                    });
+                    $('button[name=edit_chitiethoadon]').click(function (e) {
+                        var id = $(this).data("idchitiethoadon");
+                        getChiTietHoaDon(id);
+                        e.preventDefault();
+                    });
+                    $('button[name=btn_update_chitiethoadon]').click(function (e) {
+                        var id = $("#edit_id").val();
+                        updateChiTietHoaDon(id);
+                        e.preventDefault();
+                    });
+                    $('button[name=btn_delete_chitiethoadon]').click(function (e) {
+                        var id = $(this).data("idchitiethoadon");
+                        deleteChiTietHoaDon(id);
+                        e.preventDefault();
+                    });
+                    $('button[name=btn_ok]').click(function (e) {
+                        location.reload();
+                    });
+                });
+
+            </script>
+        }

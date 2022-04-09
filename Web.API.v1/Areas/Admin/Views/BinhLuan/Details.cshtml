@@ -1,0 +1,49 @@
+﻿@model DoAn_ASPNETCORE.Areas.Admin.Models.BinhLuanModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BinhLuanModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SanPham_ID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SanPham_ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NoiDung)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NoiDung)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayDang)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NgayDang)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TrangThai)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TrangThai)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -19,8 +19,7 @@ namespace Web.Data.Data
         public string DiaChi { get; set; }
         public string Email { get; set; }
         public string Sdt { get; set; }
-        public string Loai { get; set; }
-        public string TrangThai { get; set; }
+        public string Loai { get; set; }       
         public ICollection<HoaDon> lstHoaDon { set; get; }
     }
 }
