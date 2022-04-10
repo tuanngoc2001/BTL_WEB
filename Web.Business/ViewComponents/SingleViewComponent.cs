@@ -1,19 +1,18 @@
-﻿using DoAn_ASPNETCORE.Areas.Admin.Data;
-using DoAn_ASPNETCORE.Areas.Admin.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Web_Data;
 
-namespace DoAn_ASPNETCORE.ViewComponents
+namespace Web_Business.ViewComponents
 {
     [ViewComponent(Name = "Single")]
     public class SingleViewComponent : ViewComponent
     {
-        private readonly Webbanhang db;
-        public SingleViewComponent(Webbanhang context)
+        private readonly ImDbContext db;
+        public SingleViewComponent(ImDbContext context)
         {
             db = context;
         }
@@ -34,9 +33,9 @@ namespace DoAn_ASPNETCORE.ViewComponents
         //       var items1 = await LayBestSeller(id);
         //       return View(MyView1, items1);
         //}
-        private Task<List<SanPhamModel>> LayRecent(int id)
+        private Task<List<SanPham>> LayRecent(int id)
         {
-            return db.SanPhamModel.Where(x => x.MaLoai == id).ToListAsync();
+            return db.im_Product.Where(x => x.MaLoai == id).ToListAsync();
         }
         //private Task<List<SanPhamModel>> LayBestSeller(string id)
         //{

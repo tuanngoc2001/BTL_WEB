@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Web.Data.Data
+namespace Web_Data
 {
     [Table("LoaiSanPham")]
     public class LoaiSanPham

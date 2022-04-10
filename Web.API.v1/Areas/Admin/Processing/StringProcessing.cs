@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DoAn_ASPNETCORE.Areas.Admin.Data
+namespace Web_API_v1.Areas.Admin.Areas.Processing
 {
     public class StringProcessing
     {

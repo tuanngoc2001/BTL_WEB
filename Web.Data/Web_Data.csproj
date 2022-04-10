@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Web.Business\Web_Business.csproj" />
     <ProjectReference Include="..\Web.Common\Web_Common.csproj" />
   </ItemGroup>
 

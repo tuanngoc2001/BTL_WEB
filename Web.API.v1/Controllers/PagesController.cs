@@ -1,25 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using DoAn_ASPNETCORE.Areas.Admin.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
-using DoAn_ASPNETCORE.Areas.Admin.Models;
+using Web_Data;
 using Newtonsoft.Json;
 using PusherServer;
 
-namespace DoAn_ASPNETCORE.Controllers
+namespace Web_API_v1.Controllers
 {
 
     public class PagesController : Controller
     {
-        private readonly Webbanhang _context;
+        private readonly ImDbContext _context;
 
-        public PagesController(Webbanhang context)
+        public PagesController(ImDbContext context)
         {
             _context = context;
         }
@@ -58,7 +55,7 @@ namespace DoAn_ASPNETCORE.Controllers
 
         public IActionResult products(int? id)
         {
-            var iphone = (from m in _context.SanPhamModel
+            var iphone = (from m in _context.im_Product
                           where m.MaLoai == id
                           select m).ToList();
 
@@ -72,7 +69,7 @@ namespace DoAn_ASPNETCORE.Controllers
         public IActionResult detail(int? id)
         {
 
-            var detail = (from m in _context.SanPhamModel
+            var detail = (from m in _context.im_Product
                           where m.ID == id
                           select m).ToList();
 
@@ -134,15 +131,15 @@ namespace DoAn_ASPNETCORE.Controllers
             new { visits = visitors.ToString(), message = visit_text });
             ViewBag.Username = HttpContext.Session.GetString("username");
 
-            var sanpham = (from m in _context.SanPhamModel
+            var sanpham = (from m in _context.im_Product
                            where m.ID == id
                            select m).ToList();
             ViewBag.SanPham = sanpham;
-            var Recent = (from m in _context.SanPhamModel
+            var Recent = (from m in _context.im_Product
                           where m.MaLoai == 2
                           select m).Take(4).ToList();
             ViewBag.Recent = Recent;
-            var BetsSell = (from l in _context.SanPhamModel
+            var BetsSell = (from l in _context.im_Product
                             where l.DanhMuc == "DM3"
                             select l).Take(4).ToList();
             ViewBag.BestSellers = BetsSell;
@@ -154,7 +151,7 @@ namespace DoAn_ASPNETCORE.Controllers
         public async Task<IActionResult> search(String search)
         {
             ViewData["getSearch"] = search;
-            var sch = from x in _context.SanPhamModel select x;
+            var sch = from x in _context.im_Product select x;
             ViewBag.Username = HttpContext.Session.GetString("username");
             if (!String.IsNullOrEmpty(search))
             {

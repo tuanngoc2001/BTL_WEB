@@ -1,20 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Web.Common.Utils
+namespace Web_Common
 {
     class ConfigCollection
     {
         private readonly IConfigurationRoot configuration;
-
-
         public static ConfigCollection Instance { get; } = new ConfigCollection();
-
         protected ConfigCollection()
         {
             configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())

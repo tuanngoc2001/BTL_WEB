@@ -7,7 +7,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(Utils.GetConfig("ConnectionStrings:MyDb"));
+            Console.WriteLine(Util.GetConfig("ConnectionStrings:MyDb"));
         }
     }
 }

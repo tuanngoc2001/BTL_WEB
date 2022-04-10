@@ -1,20 +1,15 @@
-﻿using DoAn_ASPNETCORE.Areas.Admin.Data;
-using DoAn_ASPNETCORE.Areas.Admin.Models;
+﻿using Web_API_v1.Areas.Admin.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-
-namespace DoAn_ASPNETCORE.Controllers
+using Web_Data;
+namespace Web_API_v1.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly Webbanhang _context;
+        private readonly ImDbContext _context;
 
-        public LoginController(Webbanhang context)
+        public LoginController(ImDbContext context)
         {
             _context = context;
         }
@@ -22,11 +17,11 @@ namespace DoAn_ASPNETCORE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public IActionResult Login([Bind("UserName,Password")] UserModel member)
+        public IActionResult Login([Bind("UserName,Password")] User member)
 
         {
-            var r = _context.UserModel.Where(m => (m.UserName == member.UserName && m.Password == StringProcessing.CreateMD5Hash(member.Password))).ToList();
-            var info = _context.UserModel.Where(m => m.UserName == member.UserName).ToList();
+            var r = _context.im_User.Where(m => (m.UserName == member.UserName && m.Password == StringProcessing.CreateMD5Hash(member.Password))).ToList();
+            var info = _context.im_User.Where(m => m.UserName == member.UserName).ToList();
             if (r.Count == 0)
             {
 

@@ -1,14 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Web_Data;
 
-namespace DoAn_ASPNETCORE.Areas.Admin.Models
+namespace Web_API_v1.Models
 {
     public class UserViewModel
     {
-        public List<UserModel> Users { get; set; }
+        public List<User> Users { get; set; }
         public SelectList DSUser { get; set; }
         public string User { get; set; }
         public string searchString { get; set; }

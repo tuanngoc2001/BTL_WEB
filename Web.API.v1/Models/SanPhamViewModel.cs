@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Web_Data;
 
-namespace DoAn_ASPNETCORE.Areas.Admin.Models
+
+namespace Web_API_v1.Models
 {
     public class SanPhamViewModel
     {
-        public List<SanPhamModel> SanPhams { get; set; }
+        public List<SanPham> SanPhams { get; set; }
         public SelectList SPs { get; set; }
         public string SanPham { get; set; }
         public string SearchString { get; set; }

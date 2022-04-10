@@ -5,19 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DoAn_ASPNETCORE.Areas.Admin.Data;
-using DoAn_ASPNETCORE.Areas.Admin.Models;
+using Web_Data;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace DoAn_ASPNETCORE.Areas.Admin.Controllers
+namespace Web_API_v1.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class UserController : Controller
     {
-        private readonly Webbanhang _context;
+        private readonly ImDbContext _context;
 
-        public UserController(Webbanhang context)
+        public UserController(ImDbContext context)
         {
             _context = context;
         }

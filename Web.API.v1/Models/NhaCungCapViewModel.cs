@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Web_Data;
 
-namespace DoAn_ASPNETCORE.Areas.Admin.Models
+
+namespace Web_API_v1.Models
 {
     public class NhaCungCapViewModel
     {
-        public List<NhaCungCapModel> NhaCungCaps { get; set; }
+        public List<NhaCungCap> NhaCungCaps { get; set; }
         public SelectList DSNhaCungCap { get; set; }
         public string NhaCungCap { get; set; }
         public string SearchString { get; set; }

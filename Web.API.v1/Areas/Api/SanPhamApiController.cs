@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DoAn_ASPNETCORE.Areas.Admin.Data;
-using DoAn_ASPNETCORE.Areas.Admin.Models;
+using Web_API_v1.Areas.Admin.Data;
+using Web_API_v1.Areas.Admin.Models;
 using System.IO;
 
-namespace DoAn_ASPNETCORE.Areas.Api
+namespace Web_API_v1.Areas.Api
 {
     [Route("api/[controller]/[action]")]
     [ApiController]

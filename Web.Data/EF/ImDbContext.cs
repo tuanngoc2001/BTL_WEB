@@ -1,15 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Web.Data.Data;
+using Web_Common;
 
-namespace Web.Data.EF
+namespace Web_Data
 {
-    class ImDbContext:DbContext
+    public class ImDbContext : DbContext
     {
-        public ImDbContext(DbContextOptions<ImDbContext> options) : base(options)
+        public ImDbContext (DbContextOptions<ImDbContext> options) : base(options)
         {
-
         }
-        private static string ConnectionString= Common.Utils.Utils.GetConfig("ConnectionStrings:MyDb");
+        private static string ConnectionString= Util.GetConfig("ConnectionStrings:MyDb");
         public virtual DbSet<BinhLuan> im_Comment { get; set; }
         public virtual DbSet<ChiTietHoaDon> im_Invoice_Detail { get; set; }
         public virtual DbSet<DanhMuc> im_Category { get; set; }

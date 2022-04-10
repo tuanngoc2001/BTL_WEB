@@ -1,13 +1,8 @@
-﻿using DoAn_ASPNETCORE.Areas.Admin.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace DoAn_ASPNETCORE.Areas.Admin.Controllers
+namespace Web_API_v1.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class HomeController : Controller

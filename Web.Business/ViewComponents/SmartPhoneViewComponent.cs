@@ -1,20 +1,18 @@
-﻿using DoAn_ASPNETCORE.Areas.Admin.Data;
-using DoAn_ASPNETCORE.Areas.Admin.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Web_Data;
 
-
-namespace DoAn_ASPNETCORE.ViewComponents
+namespace Web_Business.ViewComponents
 {
     [ViewComponent(Name = "SmartPhone")]
     public class SmartPhoneViewComponent : ViewComponent
     {
-        private readonly Webbanhang db;
-        public SmartPhoneViewComponent(Webbanhang context)
+        private readonly ImDbContext db;
+        public SmartPhoneViewComponent(ImDbContext context)
         {
             db = context;
         }
@@ -27,9 +25,9 @@ namespace DoAn_ASPNETCORE.ViewComponents
 
             return View(MyView, items);
         }
-        private Task<List<SanPhamModel>> LaySanPham(int id)
+        private Task<List<SanPham>> LaySanPham(int id)
         {
-            return db.SanPhamModel.Where(x => x.MaLoai == id).ToListAsync();
+            return db.im_Product.Where(x => x.MaLoai == id).ToListAsync();
         }
     }
 

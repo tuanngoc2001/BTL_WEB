@@ -1,17 +1,14 @@
-﻿using DoAn_ASPNETCORE.Areas.Admin.Data;
+﻿using Web_Data;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace DoAn_ASPNETCORE.ViewComponents
+namespace Web_Business.ViewComponents
 {
     [ViewComponent(Name = "Login")]
     public class LoginViewComponent : ViewComponent
     {
-        private readonly Webbanhang db;
-        public LoginViewComponent(Webbanhang context)
+        private readonly ImDbContext db;
+        public LoginViewComponent(ImDbContext context)
         {
             db = context;
         }

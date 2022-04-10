@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Web_API_v1.Areas.Admin.Data;
-using Web_API_v1.Areas.Admin.Models;
+using Web_Data;
 
 namespace Web_API_v1.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class BinhLuanController : Controllers
+    public class BinhLuanController : Microsoft.AspNetCore.Mvc.Controller
     {
         private readonly ImDbContext _context;
 
-        public BinhLuanController(Webbanhang context)
+        public BinhLuanController(ImDbContext context)
         {
             _context = context;
         }
@@ -58,7 +56,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,User_ID,SanPham_ID,NoiDung,NgayDang,TrangThai")] BinhLuanModel binhLuanModel)
+        public async Task<IActionResult> Create([Bind("id,User_ID,SanPham_ID,NoiDung,NgayDang,TrangThai")] BinhLuan binhLuanModel)
         {
             if (ModelState.IsValid)
             {

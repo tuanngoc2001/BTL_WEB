@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Web.Common.Utils
+namespace Web_Common
 {
-    public class Utils
+    public class Util
     {
         public static string GetConfig(string code)
         {

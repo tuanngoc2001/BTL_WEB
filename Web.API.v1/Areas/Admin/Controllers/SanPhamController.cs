@@ -5,12 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DoAn_ASPNETCORE.Areas.Admin.Data;
-using DoAn_ASPNETCORE.Areas.Admin.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 
-namespace DoAn_ASPNETCORE.Areas.Admin.Controllers
+namespace Web_API_v1.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class SanPhamController : Controller
