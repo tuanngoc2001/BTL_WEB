@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-
+using Web_Data;
 namespace Web_API_v1.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class LoaiSanPhamController : Controller
     {
-        private readonly Webbanhang _context;
+        private readonly ImDbContext _context;
 
-        public LoaiSanPhamController(Webbanhang context)
+        public LoaiSanPhamController(ImDbContext context)
         {
             _context = context;
         }
@@ -43,7 +43,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
             //    DSLoaisp= new SelectList(await genreQuery.Distinct().ToListAsync()),
             //    LoaiSP = await webbanhang.ToListAsync()
             //};
-            ViewData["NhaCungCap"] = new SelectList(_context.Set<NhaCungCapModel>(), "ID", "ID");
+            ViewData["NhaCungCap"] = new SelectList(_context.Set<NhaCungCap>(), "ID", "ID");
             return View();
 
         }
@@ -56,7 +56,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var loaiSanPhamModel = await _context.LoaiSanPhamModel
+            var loaiSanPhamModel = await _context.im_Product_Type
                 .Include(l => l.MaNCC)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (loaiSanPhamModel == null)
@@ -70,7 +70,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
         // GET: Admin/LoaiSanPham/Create
         public IActionResult Create()
         {
-            ViewData["NhaCungCap"] = new SelectList(_context.Set<NhaCungCapModel>(), "ID", "ID");
+            ViewData["NhaCungCap"] = new SelectList(_context.Set<NhaCungCap>(), "ID", "ID");
             return View();
         }
 
@@ -79,7 +79,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,TenLoai,NhaCungCap,TrangThai")] LoaiSanPhamModel loaiSanPhamModel)
+        public async Task<IActionResult> Create([Bind("ID,TenLoai,NhaCungCap,TrangThai")] LoaiSanPham loaiSanPhamModel)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["NhaCungCap"] = new SelectList(_context.Set<NhaCungCapModel>(), "ID", "ID", loaiSanPhamModel.NhaCungCap);
+            ViewData["NhaCungCap"] = new SelectList(_context.Set<NhaCungCap>(), "ID", "ID", loaiSanPhamModel.NhaCungCap);
             return View(loaiSanPhamModel);
         }
 
@@ -99,12 +99,12 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var loaiSanPhamModel = await _context.LoaiSanPhamModel.FindAsync(id);
+            var loaiSanPhamModel = await _context.im_Product_Type.FindAsync(id);
             if (loaiSanPhamModel == null)
             {
                 return NotFound();
             }
-            ViewData["NhaCungCap"] = new SelectList(_context.Set<NhaCungCapModel>(), "ID", "ID", loaiSanPhamModel.NhaCungCap);
+            ViewData["NhaCungCap"] = new SelectList(_context.Set<NhaCungCap>(), "ID", "ID", loaiSanPhamModel.NhaCungCap);
             return View(loaiSanPhamModel);
         }
 
@@ -113,7 +113,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,TenLoai,NhaCungCap,TrangThai")] LoaiSanPhamModel loaiSanPhamModel)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,TenLoai,NhaCungCap,TrangThai")] LoaiSanPham loaiSanPhamModel)
         {
             if (id != loaiSanPhamModel.ID)
             {
@@ -140,7 +140,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["NhaCungCap"] = new SelectList(_context.Set<NhaCungCapModel>(), "ID", "ID", loaiSanPhamModel.NhaCungCap);
+            ViewData["NhaCungCap"] = new SelectList(_context.Set<NhaCungCap>(), "ID", "ID", loaiSanPhamModel.NhaCungCap);
             return View(loaiSanPhamModel);
         }
 
@@ -152,7 +152,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var loaiSanPhamModel = await _context.LoaiSanPhamModel
+            var loaiSanPhamModel = await _context.im_Product_Type
                 .Include(l => l.MaNCC)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (loaiSanPhamModel == null)
@@ -168,15 +168,15 @@ namespace Web_API_v1.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var loaiSanPhamModel = await _context.LoaiSanPhamModel.FindAsync(id);
-            _context.LoaiSanPhamModel.Remove(loaiSanPhamModel);
+            var loaiSanPhamModel = await _context.im_Product_Type.FindAsync(id);
+            _context.im_Product_Type.Remove(loaiSanPhamModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool LoaiSanPhamModelExists(int id)
         {
-            return _context.LoaiSanPhamModel.Any(e => e.ID == id);
+            return _context.im_Product_Type.Any(e => e.ID == id);
         }
     }
 }

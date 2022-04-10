@@ -1,38 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Web_API_v1.Areas.Admin.Data;
-using Web_API_v1.Areas.Admin.Models;
-
+using Web_Data;
 namespace Web_API_v1.Areas.Api
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class LoaiSanPhamApiController : ControllerBase
     {
-        private readonly Webbanhang _context;
+        private readonly ImDbContext _context;
 
-        public LoaiSanPhamApiController(Webbanhang context)
+        public LoaiSanPhamApiController(ImDbContext context)
         {
             _context = context;
         }
 
         // GET: api/LoaiSanPhamApi
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<LoaiSanPhamModel>>> GetLoaiSanPhamModel()
+        public async Task<ActionResult<IEnumerable<LoaiSanPham>>> GetLoaiSanPhamModel()
         {
-            return await _context.LoaiSanPhamModel.ToListAsync();
+            return await _context.im_Product_Type.ToListAsync();
         }
 
         // GET: api/LoaiSanPhamApi/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<LoaiSanPhamModel>> GetLoaiSanPhamModel(int id)
+        public async Task<ActionResult<LoaiSanPham>> GetLoaiSanPhamModel(int id)
         {
-            var loaiSanPhamModel = await _context.LoaiSanPhamModel.FindAsync(id);
+            var loaiSanPhamModel = await _context.im_Product_Type.FindAsync(id);
             if (loaiSanPhamModel == null)
             {
                 return NotFound();
@@ -44,7 +40,7 @@ namespace Web_API_v1.Areas.Api
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLoaiSanPhamModel(int id, LoaiSanPhamModel loaiSanPhamModel)
+        public async Task<IActionResult> PutLoaiSanPhamModel(int id, LoaiSanPham loaiSanPhamModel)
         {
             if (id != loaiSanPhamModel.ID)
             {
@@ -76,9 +72,9 @@ namespace Web_API_v1.Areas.Api
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<LoaiSanPhamModel>> PostLoaiSanPhamModel(LoaiSanPhamModel loaiSanPhamModel)
+        public async Task<ActionResult<LoaiSanPham>> PostLoaiSanPhamModel(LoaiSanPham loaiSanPhamModel)
         {
-            _context.LoaiSanPhamModel.Add(loaiSanPhamModel);
+            _context.im_Product_Type.Add(loaiSanPhamModel);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetLoaiSanPhamModel", new { id = loaiSanPhamModel.ID }, loaiSanPhamModel);
@@ -86,9 +82,9 @@ namespace Web_API_v1.Areas.Api
 
         // DELETE: api/LoaiSanPhamApi/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<LoaiSanPhamModel>> DeleteLoaiSanPhamModel(int id)
+        public async Task<ActionResult<LoaiSanPham>> DeleteLoaiSanPhamModel(int id)
         {
-            var loaiSanPhamModel = await _context.LoaiSanPhamModel.FindAsync(id);
+            var loaiSanPhamModel = await _context.im_Product_Type.FindAsync(id);
             loaiSanPhamModel.TrangThai = "0";
             if (loaiSanPhamModel == null)
             {
@@ -103,7 +99,7 @@ namespace Web_API_v1.Areas.Api
 
         private bool LoaiSanPhamModelExists(int id)
         {
-            return _context.LoaiSanPhamModel.Any(e => e.ID == id);
+            return _context.im_Product_Type.Any(e => e.ID == id);
         }
     }
 }

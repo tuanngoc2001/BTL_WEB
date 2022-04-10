@@ -3,15 +3,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using Web_Data;
 namespace Web_API_v1.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class DanhMucController : Controller
     {
-        private readonly Webbanhang _context;
+        private readonly ImDbContext _context;
 
-        public DanhMucController(Webbanhang context)
+        public DanhMucController(ImDbContext context)
         {
             _context = context;
         }
@@ -19,7 +19,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
         // GET: Admin/DanhMuc
         public async Task<IActionResult> Index()
         {
-            return View(await _context.DanhMucModel.ToListAsync());
+            return View(await _context.im_Category.ToListAsync());
         }
 
         // GET: Admin/DanhMuc/Details/5
@@ -30,7 +30,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var danhMucModel = await _context.DanhMucModel
+            var danhMucModel = await _context.im_Category
                 .FirstOrDefaultAsync(m => m.ID_DanhMuc == id);
             if (danhMucModel == null)
             {
@@ -48,7 +48,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID_DanhMuc,TenDanhMuc,TrangThai")] DanhMucModel danhMucModel)
+        public async Task<IActionResult> Create([Bind("ID_DanhMuc,TenDanhMuc,TrangThai")] DanhMuc danhMucModel)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +67,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var danhMucModel = await _context.DanhMucModel.FindAsync(id);
+            var danhMucModel = await _context.im_Category.FindAsync(id);
             if (danhMucModel == null)
             {
                 return NotFound();
@@ -79,7 +79,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("ID_DanhMuc,TenDanhMuc,TrangThai")] DanhMucModel danhMucModel)
+        public async Task<IActionResult> Edit(string id, [Bind("ID_DanhMuc,TenDanhMuc,TrangThai")] DanhMuc danhMucModel)
         {
             if (id != danhMucModel.ID_DanhMuc)
             {
@@ -117,7 +117,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var danhMucModel = await _context.DanhMucModel
+            var danhMucModel = await _context.im_Category
                 .FirstOrDefaultAsync(m => m.ID_DanhMuc == id);
             if (danhMucModel == null)
             {
@@ -132,15 +132,15 @@ namespace Web_API_v1.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var danhMucModel = await _context.DanhMucModel.FindAsync(id);
-            _context.DanhMucModel.Remove(danhMucModel);
+            var danhMucModel = await _context.im_Category.FindAsync(id);
+            _context.im_Category.Remove(danhMucModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool DanhMucModelExists(string id)
         {
-            return _context.DanhMucModel.Any(e => e.ID_DanhMuc == id);
+            return _context.im_Category.Any(e => e.ID_DanhMuc == id);
         }
     }
 }

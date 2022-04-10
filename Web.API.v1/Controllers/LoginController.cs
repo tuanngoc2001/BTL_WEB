@@ -1,8 +1,9 @@
-﻿using Web_API_v1.Areas.Admin.Data;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Web_Data;
+using Web_API_v1.Areas.Admin;
+
 namespace Web_API_v1.Controllers
 {
     public class LoginController : Controller

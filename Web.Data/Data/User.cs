@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Web_Data
 {
-    [Table("User")]
+    [Table("im_User")]
     public class User
     {
         [Key]

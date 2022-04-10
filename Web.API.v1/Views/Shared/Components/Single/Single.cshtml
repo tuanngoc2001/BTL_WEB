@@ -1,0 +1,22 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<Web_Data.SanPham>
+<div class="recent-grids">
+    @foreach (var Recent in ViewBag.Recent)
+    {
+        <div class="recent-left">
+            <a href="~/pages/single/@Recent.ID"><img class="img-responsive " src="~/images/@Recent.Image" alt=""></a>
+        </div>
+        <div class="recent-right">
+            <h6 class="best2"><a href="~/pages/single/@Recent.ID">@Recent.TenSP </a></h6>
+            <div class="block">
+                <div class="starbox small ghosting"> </div>
+            </div>
+            <span class=" price-in1">@Recent.Gia VND</span>
+        </div>
+    }
+    <div class="clearfix"> </div>
+</div>

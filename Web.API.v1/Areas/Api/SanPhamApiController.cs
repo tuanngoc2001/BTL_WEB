@@ -1,39 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Web_API_v1.Areas.Admin.Data;
-using Web_API_v1.Areas.Admin.Models;
 using System.IO;
-
+using Web_Data;
 namespace Web_API_v1.Areas.Api
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class SanPhamApiController : ControllerBase
     {
-        private readonly Webbanhang _context;
+        private readonly ImDbContext _context;
 
-        public SanPhamApiController(Webbanhang context)
+        public SanPhamApiController(ImDbContext context)
         {
             _context = context;
         }
 
         // GET: api/SanPhamApi
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SanPhamModel>>> GetSanPhamModel()
+        public async Task<ActionResult<IEnumerable<SanPham>>> GetSanPhamModel()
         {
-            return await _context.SanPhamModel.ToListAsync();
+            return await _context.im_Product.ToListAsync();
         }
 
         // GET: api/SanPhamApi/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<SanPhamModel>> GetSanPhamModel(int id)
+        public async Task<ActionResult<SanPham>> GetSanPhamModel(int id)
         {
-            var sanPhamModel = await _context.SanPhamModel.FindAsync(id);
+            var sanPhamModel = await _context.im_Product.FindAsync(id);
 
             if (sanPhamModel == null)
             {
@@ -47,7 +44,7 @@ namespace Web_API_v1.Areas.Api
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSanPhamModel(int id, SanPhamModel sanPhamModel)
+        public async Task<IActionResult> PutSanPhamModel(int id, SanPham sanPhamModel)
         {
             if (id != sanPhamModel.ID)
             {
@@ -79,9 +76,9 @@ namespace Web_API_v1.Areas.Api
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<SanPhamModel>> PostSanPhamModel(SanPhamModel sanPhamModel, IFormFile ful, IFormFile ful1)
+        public async Task<ActionResult<SanPham>> PostSanPhamModel(SanPham sanPhamModel, IFormFile ful, IFormFile ful1)
         {
-            _context.SanPhamModel.Add(sanPhamModel);
+            _context.im_Product.Add(sanPhamModel);
             await _context.SaveChangesAsync();
             //dat lai ten file hinh theo ID
             string s = sanPhamModel.ID + "." + ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1];
@@ -111,15 +108,15 @@ namespace Web_API_v1.Areas.Api
 
         // DELETE: api/SanPhamApi/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<SanPhamModel>> DeleteSanPhamModel(int id)
+        public async Task<ActionResult<SanPham>> DeleteSanPhamModel(int id)
         {
-            var sanPhamModel = await _context.SanPhamModel.FindAsync(id);
+            var sanPhamModel = await _context.im_Product.FindAsync(id);
             if (sanPhamModel == null)
             {
                 return NotFound();
             }
 
-            _context.SanPhamModel.Remove(sanPhamModel);
+            _context.im_Product.Remove(sanPhamModel);
             await _context.SaveChangesAsync();
 
             return sanPhamModel;
@@ -127,7 +124,7 @@ namespace Web_API_v1.Areas.Api
 
         private bool SanPhamModelExists(int id)
         {
-            return _context.SanPhamModel.Any(e => e.ID == id);
+            return _context.im_Product.Any(e => e.ID == id);
         }
     }
 }

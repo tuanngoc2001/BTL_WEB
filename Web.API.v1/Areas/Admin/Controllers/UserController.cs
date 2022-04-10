@@ -37,7 +37,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var userModel = await _context.UserModel
+            var userModel = await _context.im_User
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (userModel == null)
             {
@@ -60,7 +60,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,UserName,Password,HoTen,DiaChi,Email,Sdt,Loai,TrangThai")] UserModel userModel)
+        public async Task<IActionResult> Create([Bind("ID,UserName,Password,HoTen,DiaChi,Email,Sdt,Loai,TrangThai")] User userModel)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var userModel = await _context.UserModel.FindAsync(id);
+            var userModel = await _context.im_User.FindAsync(id);
             if (userModel == null)
             {
                 return NotFound();
@@ -107,7 +107,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,UserName,Password,HoTen,DiaChi,Email,Sdt,Loai,TrangThai")] UserModel userModel)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,UserName,Password,HoTen,DiaChi,Email,Sdt,Loai,TrangThai")] User userModel)
         {
             if (id != userModel.ID)
             {
@@ -145,7 +145,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var userModel = await _context.UserModel
+            var userModel = await _context.im_User
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (userModel == null)
             {
@@ -160,15 +160,15 @@ namespace Web_API_v1.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var userModel = await _context.UserModel.FindAsync(id);
-            _context.UserModel.Remove(userModel);
+            var userModel = await _context.im_User.FindAsync(id);
+            _context.im_User.Remove(userModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool UserModelExists(int id)
         {
-            return _context.UserModel.Any(e => e.ID == id);
+            return _context.im_User.Any(e => e.ID == id);
         }
     }
 }

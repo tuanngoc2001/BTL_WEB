@@ -3,15 +3,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using Web_Data;
 namespace Web_API_v1.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class NhaCungCapController : Controller
     {
-        private readonly Webbanhang _context;
+        private readonly ImDbContext _context;
 
-        public NhaCungCapController(Webbanhang context)
+        public NhaCungCapController(ImDbContext context)
         {
             _context = context;
         }
@@ -51,7 +51,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var nhaCungCapModel = await _context.NhaCungCapModel
+            var nhaCungCapModel = await _context.im_Supplier
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (nhaCungCapModel == null)
             {
@@ -72,7 +72,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,TenNCC,DiaChi,TrangThai")] NhaCungCapModel nhaCungCapModel)
+        public async Task<IActionResult> Create([Bind("ID,TenNCC,DiaChi,TrangThai")] NhaCungCap nhaCungCapModel)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var nhaCungCapModel = await _context.NhaCungCapModel.FindAsync(id);
+            var nhaCungCapModel = await _context.im_Supplier.FindAsync(id);
             if (nhaCungCapModel == null)
             {
                 return NotFound();
@@ -104,7 +104,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,TenNCC,DiaChi,TrangThai")] NhaCungCapModel nhaCungCapModel)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,TenNCC,DiaChi,TrangThai")] NhaCungCap nhaCungCapModel)
         {
             if (id != nhaCungCapModel.ID)
             {
@@ -142,7 +142,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var nhaCungCapModel = await _context.NhaCungCapModel
+            var nhaCungCapModel = await _context.im_Supplier
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (nhaCungCapModel == null)
             {
@@ -157,15 +157,15 @@ namespace Web_API_v1.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var nhaCungCapModel = await _context.NhaCungCapModel.FindAsync(id);
-            _context.NhaCungCapModel.Remove(nhaCungCapModel);
+            var nhaCungCapModel = await _context.im_Supplier.FindAsync(id);
+            _context.im_Supplier.Remove(nhaCungCapModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool NhaCungCapModelExists(int id)
         {
-            return _context.NhaCungCapModel.Any(e => e.ID == id);
+            return _context.im_Supplier.Any(e => e.ID == id);
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Web_Data
 {
-    [Table("DanhMuc")]
+    [Table("im_Category")]
     public class DanhMuc
     {
         [Key]

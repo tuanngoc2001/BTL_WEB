@@ -1,0 +1,87 @@
+﻿
+
+@model IEnumerable<Web_Data.SanPham>
+
+<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+    <ul id="myTab" class="nav1 nav1-tabs left-tab" role="tablist">
+        <ul id="myTab" class="nav nav-tabs left-tab" role="tablist">
+            <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><img src="~/images/menu1.png"></a></li>
+            <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile"><img src="~/images/menu.png"></a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                <div class="product-tab">
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-4 product-tab-grid simpleCart_shelfItem">
+                            <div class="grid-arr">
+                                <div class="grid-arrival">
+                                    <figure>
+                                        <a href="~/pages/single/@item.ID">
+                                            <div class="grid-img">
+                                                <img src="~/images/@item.Image" class="img-responsive" alt="">
+                                            </div>
+                                            <div class="grid-img">
+                                                <img src="~/images/@item.Image" class="img-responsive" alt="">
+                                            </div>
+                                        </a>
+                                    </figure>
+                                </div>
+                                <div class="block">
+                                    <div class="starbox small ghosting"> </div>
+                                </div>
+                                <div class="women">
+                                    <h6><a href="~/pages/single">@item.TenSP</a></h6>
+                                    <span class="size">XL / XXL / S </span>
+                                    <p><del>@item.Gia</del><em class="item_price">@item.GiaMoi</em></p>
+                                    <a asp-route="addcart"
+                                       asp-route-productid="@item.ID" data-text="Add To Cart" class="my-cart-b item_add">Add To Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+        </div>
+</div>
+
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <script>
+$(document).ready(function () {
+            $(".ajax-add-to-cart").click(function () {
+                $.ajax({
+                    url: "/Cart/AddToCart",
+                    data: {
+                        id: $(this).data("id"),
+                        SoLuong: 1,
+                        type: "ajax"
+                    },
+                    success: function (data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thêm giỏ hàng thành công',
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                        console.log(data.soLuong);
+                        $("#cart_count").html(data.soLuong);
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Thêm giỏ hàng thất bại',
+                            text: 'Vui lòng thử lại',
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                    }
+                });
+            });
+        });</script>
+}

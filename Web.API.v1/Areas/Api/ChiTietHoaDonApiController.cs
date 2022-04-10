@@ -1,38 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Web_API_v1.Areas.Admin.Data;
-using Web_API_v1.Areas.Admin.Models;
-
+using Web_Data;
 namespace Web_API_v1.Areas.Api
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class ChiTietHoaDonApiController : ControllerBase
     {
-        private readonly Webbanhang _context;
+        private readonly ImDbContext _context;
 
-        public ChiTietHoaDonApiController(Webbanhang context)
+        public ChiTietHoaDonApiController(ImDbContext context)
         {
             _context = context;
         }
 
         // GET: api/ChiTietHoaDonApi
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ChiTietHoaDonModel>>> GetChiTietHoaDonModel()
+        public async Task<ActionResult<IEnumerable<ChiTietHoaDon>>> GetChiTietHoaDonModel()
         {
-            return await _context.ChiTietHoaDonModel.ToListAsync();
+            return await _context.im_Invoice_Detail.ToListAsync();
         }
 
         // GET: api/ChiTietHoaDonApi/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ChiTietHoaDonModel>> GetChiTietHoaDonModel(int id)
+        public async Task<ActionResult<ChiTietHoaDon>> GetChiTietHoaDonModel(int id)
         {
-            var chiTietHoaDonModel = await _context.ChiTietHoaDonModel.FindAsync(id);
+            var chiTietHoaDonModel = await _context.im_Invoice_Detail.FindAsync(id);
 
             if (chiTietHoaDonModel == null)
             {
@@ -46,7 +42,7 @@ namespace Web_API_v1.Areas.Api
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutChiTietHoaDonModel(int id, ChiTietHoaDonModel chiTietHoaDonModel)
+        public async Task<IActionResult> PutChiTietHoaDonModel(int id, ChiTietHoaDon chiTietHoaDonModel)
         {
             if (id != chiTietHoaDonModel.ID)
             {
@@ -78,9 +74,9 @@ namespace Web_API_v1.Areas.Api
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<ChiTietHoaDonModel>> PostChiTietHoaDonModel(ChiTietHoaDonModel chiTietHoaDonModel)
+        public async Task<ActionResult<ChiTietHoaDon>> PostChiTietHoaDonModel(ChiTietHoaDon chiTietHoaDonModel)
         {
-            _context.ChiTietHoaDonModel.Add(chiTietHoaDonModel);
+            _context.im_Invoice_Detail.Add(chiTietHoaDonModel);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetChiTietHoaDonModel", new { id = chiTietHoaDonModel.ID }, chiTietHoaDonModel);
@@ -88,10 +84,10 @@ namespace Web_API_v1.Areas.Api
 
         // DELETE: api/ChiTietHoaDonApi/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ChiTietHoaDonModel>> DeleteChiTietHoaDonModel(int id)
+        public async Task<ActionResult<ChiTietHoaDon>> DeleteChiTietHoaDonModel(int id)
         {
 
-            var chiTietHoaDonModel = await _context.ChiTietHoaDonModel.FindAsync(id);
+            var chiTietHoaDonModel = await _context.im_Invoice_Detail.FindAsync(id);
             chiTietHoaDonModel.TrangThai = 0;
             if (chiTietHoaDonModel == null)
             {
@@ -106,7 +102,7 @@ namespace Web_API_v1.Areas.Api
 
         private bool ChiTietHoaDonModelExists(int id)
         {
-            return _context.ChiTietHoaDonModel.Any(e => e.ID == id);
+            return _context.im_Invoice_Detail.Any(e => e.ID == id);
         }
     }
 }

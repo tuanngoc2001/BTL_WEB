@@ -7,15 +7,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Web_Data;
+using Web_API_v1.Models;
 
 namespace Web_API_v1.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class SanPhamController : Controller
     {
-        private readonly Webbanhang _context;
+        private readonly ImDbContext _context;
 
-        public SanPhamController(Webbanhang context)
+        public SanPhamController(ImDbContext context)
         {
             _context = context;
         }
@@ -23,21 +25,21 @@ namespace Web_API_v1.Areas.Admin.Controllers
         // GET: Admin/SanPham
         public async Task<IActionResult> Index(string searchString)
         {
-            IQueryable<string> genreQuery = from m in _context.SanPhamModel select m.TenSP;
-            var sanphams = from m in _context.SanPhamModel
+            IQueryable<string> genreQuery = from m in _context.im_Product select m.TenSP;
+            var sanphams = from m in _context.im_Product
                            select m;
             if (!string.IsNullOrEmpty(searchString))
             {
                 sanphams = sanphams.Where(s => s.TenSP.Contains(searchString));
             }
 
-            var SanPhamViewModel = new SanPhamViewModel
+            var SPViewModel = new SanPhamViewModel
             {
                 SPs = new SelectList(await genreQuery.Distinct().ToListAsync()),
                 SanPhams = await sanphams.ToListAsync()
 
             };
-            return View(SanPhamViewModel);
+            return View(SPViewModel);
         }
 
         // GET: Admin/SanPham/Details/5
@@ -48,7 +50,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var sanPhamModel = await _context.SanPhamModel
+            var sanPhamModel = await _context.im_Product
                 .Include(s => s.Loai)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (sanPhamModel == null)
@@ -62,14 +64,14 @@ namespace Web_API_v1.Areas.Admin.Controllers
         // GET: Admin/SanPham/Create
         public IActionResult Create()
         {
-            ViewData["MaLoai"] = new SelectList(_context.Set<LoaiSanPhamModel>(), "ID", "ID");
+            ViewData["MaLoai"] = new SelectList(_context.Set<LoaiSanPham>(), "ID", "ID");
 
-            ViewData["DanhMuc"] = new SelectList(_context.Set<DanhMucModel>(), "ID_DanhMuc", "ID_DanhMuc");
+            ViewData["DanhMuc"] = new SelectList(_context.Set<DanhMuc>(), "ID_DanhMuc", "ID_DanhMuc");
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,TenSP,MaLoai,DanhMuc,Gia,GiaMoi,Image,Image_List,Size,SoLuong,NgayLap,TrangThai")] SanPhamModel sanPhamModel, IFormFile ful, IFormFile ful1)
+        public async Task<IActionResult> Create([Bind("ID,TenSP,MaLoai,DanhMuc,Gia,GiaMoi,Image,Image_List,Size,SoLuong,NgayLap,TrangThai")] SanPham sanPhamModel, IFormFile ful, IFormFile ful1)
         {
             if (ModelState.IsValid)
             {
@@ -112,13 +114,13 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var sanPhamModel = await _context.SanPhamModel.FindAsync(id);
+            var sanPhamModel = await _context.im_Product.FindAsync(id);
             if (sanPhamModel == null)
             {
                 return NotFound();
             }
-            ViewData["MaLoai"] = new SelectList(_context.Set<LoaiSanPhamModel>(), "ID", "ID", sanPhamModel.MaLoai);
-            ViewData["DanhMuc"] = new SelectList(_context.Set<DanhMucModel>(), "ID_DanhMuc", "ID_DanhMuc");
+            ViewData["MaLoai"] = new SelectList(_context.Set<LoaiSanPham>(), "ID", "ID", sanPhamModel.MaLoai);
+            ViewData["DanhMuc"] = new SelectList(_context.Set<DanhMuc>(), "ID_DanhMuc", "ID_DanhMuc");
             return View(sanPhamModel);
         }
 
@@ -127,7 +129,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,TenSP,MaLoai,DanhMuc,Gia,GiaMoi,Image,Image_List,Size,SoLuong,NgayLap,TrangThai")] SanPhamModel sanPhamModel, IFormFile ful, IFormFile ful1)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,TenSP,MaLoai,DanhMuc,Gia,GiaMoi,Image,Image_List,Size,SoLuong,NgayLap,TrangThai")] SanPham sanPhamModel, IFormFile ful, IFormFile ful1)
         {
             if (id != sanPhamModel.ID)
             {
@@ -199,7 +201,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MaLoai"] = new SelectList(_context.Set<LoaiSanPhamModel>(), "ID", "ID", sanPhamModel.MaLoai);
+            ViewData["MaLoai"] = new SelectList(_context.Set<LoaiSanPham>(), "ID", "ID", sanPhamModel.MaLoai);
             return View(sanPhamModel);
         }
 
@@ -211,7 +213,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var sanPhamModel = await _context.SanPhamModel
+            var sanPhamModel = await _context.im_Product
                 .Include(s => s.Loai)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (sanPhamModel == null)
@@ -227,15 +229,15 @@ namespace Web_API_v1.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var sanPhamModel = await _context.SanPhamModel.FindAsync(id);
-            _context.SanPhamModel.Remove(sanPhamModel);
+            var sanPhamModel = await _context.im_Product.FindAsync(id);
+            _context.im_Product.Remove(sanPhamModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool SanPhamModelExists(int id)
         {
-            return _context.SanPhamModel.Any(e => e.ID == id);
+            return _context.im_Product.Any(e => e.ID == id);
         }
     }
 }

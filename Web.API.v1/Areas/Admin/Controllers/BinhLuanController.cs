@@ -9,7 +9,7 @@ using Web_Data;
 namespace Web_API_v1.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class BinhLuanController : Microsoft.AspNetCore.Mvc.Controller
+    public class BinhLuanController : Controller
     {
         private readonly ImDbContext _context;
 
@@ -21,7 +21,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
         // GET: Admin/BinhLuan
         public async Task<IActionResult> Index()
         {
-            var webbanhang = _context.BinhLuanModel.Include(b => b.User);
+            var webbanhang = _context.im_Comment.Include(b => b.User);
             return View(await webbanhang.ToListAsync());
         }
 
@@ -33,7 +33,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var binhLuanModel = await _context.BinhLuanModel
+            var binhLuanModel = await _context.im_Comment
                 .Include(b => b.User)
                 .FirstOrDefaultAsync(m => m.id == id);
             if (binhLuanModel == null)
@@ -47,7 +47,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
         // GET: Admin/BinhLuan/Create
         public IActionResult Create()
         {
-            ViewData["User_ID"] = new SelectList(_context.UserModel, "ID", "ID");
+            ViewData["User_ID"] = new SelectList(_context.im_User, "ID", "ID");
             return View();
         }
 
@@ -64,7 +64,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["User_ID"] = new SelectList(_context.UserModel, "ID", "ID", binhLuanModel.User_ID);
+            ViewData["User_ID"] = new SelectList(_context.im_User, "ID", "ID", binhLuanModel.User_ID);
             return View(binhLuanModel);
         }
 
@@ -76,12 +76,12 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var binhLuanModel = await _context.BinhLuanModel.FindAsync(id);
+            var binhLuanModel = await _context.im_Comment.FindAsync(id);
             if (binhLuanModel == null)
             {
                 return NotFound();
             }
-            ViewData["User_ID"] = new SelectList(_context.UserModel, "ID", "ID", binhLuanModel.User_ID);
+            ViewData["User_ID"] = new SelectList(_context.im_User, "ID", "ID", binhLuanModel.User_ID);
             return View(binhLuanModel);
         }
 
@@ -89,7 +89,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,User_ID,SanPham_ID,NoiDung,NgayDang,TrangThai")] BinhLuanModel binhLuanModel)
+        public async Task<IActionResult> Edit(int id, [Bind("id,User_ID,SanPham_ID,NoiDung,NgayDang,TrangThai")] BinhLuan binhLuanModel)
         {
             if (id != binhLuanModel.id)
             {
@@ -116,7 +116,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["User_ID"] = new SelectList(_context.UserModel, "ID", "ID", binhLuanModel.User_ID);
+            ViewData["User_ID"] = new SelectList(_context.im_User, "ID", "ID", binhLuanModel.User_ID);
             return View(binhLuanModel);
         }
 
@@ -128,7 +128,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var binhLuanModel = await _context.BinhLuanModel
+            var binhLuanModel = await _context.im_Comment
                 .Include(b => b.User)
                 .FirstOrDefaultAsync(m => m.id == id);
             if (binhLuanModel == null)
@@ -144,15 +144,15 @@ namespace Web_API_v1.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var binhLuanModel = await _context.BinhLuanModel.FindAsync(id);
-            _context.BinhLuanModel.Remove(binhLuanModel);
+            var binhLuanModel = await _context.im_Comment.FindAsync(id);
+            _context.im_Comment.Remove(binhLuanModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BinhLuanModelExists(int id)
         {
-            return _context.BinhLuanModel.Any(e => e.id == id);
+            return _context.im_Comment.Any(e => e.id == id);
         }
     }
 }

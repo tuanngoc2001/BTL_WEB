@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Web_API_v1.Areas.Admin.Areas.Processing
+namespace Web_API_v1.Areas.Admin
 {
     public class StringProcessing
     {

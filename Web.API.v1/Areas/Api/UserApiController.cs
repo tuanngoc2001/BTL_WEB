@@ -1,38 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Web_API_v1.Areas.Admin.Data;
-using Web_API_v1.Areas.Admin.Models;
-
+using Web_Data;
 namespace Web_API_v1.Areas.Api
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class UserApiController : ControllerBase
     {
-        private readonly Webbanhang _context;
+        private readonly ImDbContext _context;
 
-        public UserApiController(Webbanhang context)
+        public UserApiController(ImDbContext context)
         {
             _context = context;
         }
 
         // GET: api/UserApi
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserModel>>> GetUserModel()
+        public async Task<ActionResult<IEnumerable<User>>> GetUserModel()
         {
-            return await _context.UserModel.ToListAsync();
+            return await _context.im_User.ToListAsync();
         }
 
         // GET: api/UserApi/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserModel>> GetUserModel(int id)
+        public async Task<ActionResult<User>> GetUserModel(int id)
         {
-            var userModel = await _context.UserModel.FindAsync(id);
+            var userModel = await _context.im_User.FindAsync(id);
 
             if (userModel == null)
             {
@@ -46,7 +42,7 @@ namespace Web_API_v1.Areas.Api
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUserModel(int id, UserModel userModel)
+        public async Task<IActionResult> PutUserModel(int id, User userModel)
         {
             if (id != userModel.ID)
             {
@@ -78,9 +74,9 @@ namespace Web_API_v1.Areas.Api
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<UserModel>> PostUserModel(UserModel userModel)
+        public async Task<ActionResult<User>> PostUserModel(User userModel)
         {
-            _context.UserModel.Add(userModel);
+            _context.im_User.Add(userModel);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUserModel", new { id = userModel.ID }, userModel);
@@ -88,24 +84,21 @@ namespace Web_API_v1.Areas.Api
 
         // DELETE: api/UserApi/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<UserModel>> DeleteUserModel(int id)
+        public async Task<ActionResult<User>> DeleteUserModel(int id)
         {
-            var userModel = await _context.UserModel.FindAsync(id);
-            userModel.TrangThai = "0";
+            var userModel = await _context.im_User.FindAsync(id);           
             if (userModel == null)
             {
                 return NotFound();
             }
-
-            _context.UserModel.Update(userModel);
+            _context.im_User.Remove(userModel);
             await _context.SaveChangesAsync();
-
             return userModel;
         }
 
         private bool UserModelExists(int id)
         {
-            return _context.UserModel.Any(e => e.ID == id);
+            return _context.im_User.Any(e => e.ID == id);
         }
     }
 }

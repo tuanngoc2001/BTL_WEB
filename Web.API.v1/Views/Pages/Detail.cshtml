@@ -1,0 +1,220 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model IEnumerable<Web_Data.SanPham>
+@{
+    ViewData["Title"] = "pages Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="banner1">
+    <div class="container">
+        <h3><a href="~/pages/index">Home</a> / <span>Products</span></h3>
+    </div>
+</div>
+<!--banner-->
+<!--content-->
+<div class="content">
+    <div class="products-agileinfo">
+        <h2 class="tittle">Chi Tiết Sản Phẩm</h2>
+        <div class="container">
+            <div class="product-agileinfo-grids w3l">
+                <div class="col-md-3 product-agileinfo-grid">
+                    <div class="categories">
+                        <h3>Danh Mục Sản Phẩm</h3>
+                        <ul class="tree-list-pad">
+                            <li><a href="products.html">Sam Sung</a></li>
+                            <li><a href="products.html">Iphone</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="price">
+
+                        <script type='text/javascript'>
+//<![CDATA[
+									$(window).load(function(){
+									 $( "#slider-range" ).slider({
+												range: true,
+												min: 0,
+												max: 9000,
+												values: [ 1000, 7000 ],
+												slide: function( event, ui ) {  $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+												}
+									 });
+									$( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) + " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+
+									});//]]>
+
+                        </script>
+                        <script type="text/javascript" src="~/js/jquery-ui.~/js"></script>
+                    </div>
+                    <div class="top-rates">
+                        <h3>Top Rates products</h3>
+                        <div class="recent-grids">
+                            <div class="recent-left">
+                                <a href="~/pages/single"><img class="img-responsive " src="~/images/r.jpg" alt=""></a>
+                            </div>
+                            <div class="recent-right">
+                                <h6 class="best2"><a href="~/pages/single">Lorem ipsum dolor </a></h6>
+                                <p><del>$100.00</del> <em class="item_price">$09.00</em></p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="recent-grids">
+                            <div class="recent-left">
+                                <a href="~/pages/single"><img class="img-responsive " src="~/images/r1.jpg" alt=""></a>
+                            </div>
+                            <div class="recent-right">
+                                <h6 class="best2"><a href="~/pages/single">Duis aute irure </a></h6>
+                                <p><del>$100.00</del> <em class="item_price">$19.00</em></p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="recent-grids">
+                            <div class="recent-left">
+                                <a href="~/pages/single"><img class="img-responsive " src="~/images/r2.jpg" alt=""></a>
+                            </div>
+                            <div class="recent-right">
+                                <h6 class="best2"><a href="~/pages/single">Lorem ipsum dolor </a></h6>
+                                <p><del>$100.00</del> <em class="item_price">$39.00</em></p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="recent-grids">
+                            <div class="recent-left">
+                                <a href="~/pages/single"><img class="img-responsive " src="~/images/r3.jpg" alt=""></a>
+                            </div>
+                            <div class="recent-right">
+                                <h6 class="best2"><a href="~/pages/single">Ut enim ad minim </a></h6>
+                                <p><em class="item_price">$39.00</em></p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                    </div>
+
+                    <div class="cat-img">
+                        <img class="img-responsive " src="~/images/45.jpg" alt="">
+                    </div>
+                </div>
+                <div class="col-md-9 product-agileinfon-grid1 w3l">
+                    <div class="product-agileinfon-top">
+                        <div class="col-md-6 product-agileinfon-top-left">
+                            <img class="img-responsive " src="~/images/img1.jpg" alt="">
+                        </div>
+                        <div class="col-md-6 product-agileinfon-top-left">
+                            <img class="img-responsive " src="~/images/img2.jpg" alt="">
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="mens-toolbar">
+                        <p>Showing 1–9 of 21 results</p>
+                        <p class="showing">
+                            Sorting By
+                            <select>
+                                <option value=""> Name</option>
+                                <option value="">  Rate</option>
+                                <option value=""> Color </option>
+                                <option value=""> Price </option>
+                            </select>
+                        </p>
+                        <p>
+                            Show
+                            <select>
+                                <option value=""> 9</option>
+                                <option value="">  10</option>
+                                <option value=""> 11 </option>
+                                <option value=""> 12 </option>
+                            </select>
+                        </p>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                        <ul id="myTab" class="nav1 nav1-tabs left-tab" role="tablist">
+                            <ul id="myTab" class="nav nav-tabs left-tab" role="tablist">
+                                <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><img src="~/images/menu1.png"></a></li>
+                                <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile"><img src="~/images/menu.png"></a></li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                                    <div class="product-tab">
+
+
+                                        @foreach (var item in ViewBag.ChiTiet)
+                                        {
+                                            <div class="col-md-9 single-grid">
+                                                <div clas="single-top">
+                                                    <div class="single-left">
+                                                        <div class="flexslider">
+                                                            <ul class="slides">
+                                                                <li data-thumb="~/images/@item.Image">
+                                                                    <div class="thumb-image"> <img src="~/images/@item.Image" data-imagezoom="true" class="img-responsive"> </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="single-right simpleCart_shelfItem">
+                                                        <h4>@item.TenSP</h4>
+                                                        <div class="block">
+                                                            <div class="starbox small ghosting"> </div>
+                                                        </div>
+                                                        <p class="price item_price">@item.GiaMoi VND</p>
+                                                        <div class="description">
+                                                            <p><span>Quick Overview : </span> @item.MoTaNgan</p>
+                                                        </div>
+                                                        <div class="color-quality">
+                                                            <h6>Quality :</h6>
+                                                            <div class="quantity">
+                                                                <div class="quantity-select">
+                                                                    <div class="entry value-minus1">&nbsp;</div>
+                                                                    <div class="entry value1"><span>1</span></div>
+                                                                    <div class="entry value-plus1 active">&nbsp;</div>
+                                                                </div>
+                                                            </div>
+                                                            <!--quantity-->
+                                                            <script>
+                                                                $('.value-plus1').on('click', function () {
+                                                                    var divUpd = $(this).parent().find('.value1'), newVal = parseInt(divUpd.text(), 10) + 1;
+                                                                    divUpd.text(newVal);
+                                                                });
+
+                                                                $('.value-minus1').on('click', function () {
+                                                                    var divUpd = $(this).parent().find('.value1'), newVal = parseInt(divUpd.text(), 10) - 1;
+                                                                    if (newVal >= 1) divUpd.text(newVal);
+                                                                });
+                                                            </script>
+                                                            <!--quantity-->
+                                                        </div>
+                                                        <div class="women">
+                                                            <span class="size">@item.Size </span>
+                                                            <a href="#" data-text="Add To Cart" class="my-cart-b item_add">Add To Cart</a>
+                                                        </div>
+                                                        <div class="social-icon">
+                                                            <a href="#"><i class="icon"></i></a>
+                                                            <a href="#"><i class="icon1"></i></a>
+                                                            <a href="#"><i class="icon2"></i></a>
+                                                            <a href="#"><i class="icon3"></i></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"> </div>
+                                                </div>
+                                            </div>
+
+                                        }
+
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--content-->

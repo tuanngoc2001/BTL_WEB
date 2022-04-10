@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Web_Data
 {
-    [Table("SanPham")]
+    [Table("im_Product")]
     public class SanPham
     {
         public int ID { get; set; }

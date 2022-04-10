@@ -1,0 +1,35 @@
+﻿@model Web_Data.User
+
+<div class="login">
+    <div class="main-agileits">
+        <div class="form-w3agile">
+            <h3>Login To Phone Shop</h3>
+            <form method="post">
+                <div class="key">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <input type="text" asp-for="UserName" placeholder="Username">
+                    <div class="clearfix"></div>
+                </div>
+                <div class="key">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    <input type="password" asp-for="Password" placeholder="Password">
+                    <div class="clearfix"></div>
+                </div>
+                <input type="submit" asp-action="Login">
+            </form>
+        </div>
+        <div class="forg">
+            <a href="#" class="forg-left">Forgot Password</a>
+            <a asp-area="Admin" asp-controller="User" asp-action="Create class="forg-right">Register</a>
+            <div class="clearfix"></div>
+        </div>
+        <div id="fb-root">
+        </div>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v9.0&appId=250620996446716&autoLogAppEvents=1" nonce="P7yrjRmc"></script>
+        @*<div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>*@
+        <fb:login-button scope="public_profile,email"
+                         onlogin="checkLoginState();">
+        </fb:login-button>
+    </div>
+
+</div>

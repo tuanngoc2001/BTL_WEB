@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Web_Data;
 using Newtonsoft.Json;
 using PusherServer;
-
+using Web_API_v1.Models;
 namespace Web_API_v1.Controllers
 {
 
@@ -195,7 +195,7 @@ namespace Web_API_v1.Controllers
         public IActionResult AddToCart([FromRoute] int productid)
         {
 
-            var product = _context.SanPhamModel
+            var product = _context.im_Product
                 .Where(p => p.ID == productid)
                 .FirstOrDefault();
             if (product == null)

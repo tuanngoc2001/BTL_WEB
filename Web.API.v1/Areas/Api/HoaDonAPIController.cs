@@ -1,38 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Web_API_v1.Areas.Admin.Data;
-using Web_API_v1.Areas.Admin.Models;
-
+using Web_Data;
 namespace Web_API_v1.Areas.Api
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class HoaDonAPIController : ControllerBase
     {
-        private readonly Webbanhang _context;
+        private readonly ImDbContext _context;
 
-        public HoaDonAPIController(Webbanhang context)
+        public HoaDonAPIController(ImDbContext context)
         {
             _context = context;
         }
 
         // GET: api/HoaDonAPI
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<HoaDonModel>>> GetHoaDonModel()
+        public async Task<ActionResult<IEnumerable<HoaDon>>> GetHoaDonModel()
         {
-            return await _context.HoaDonModel.ToListAsync();
+            return await _context.im_Invoice.ToListAsync();
         }
 
         // GET: api/HoaDonAPI/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<HoaDonModel>> GetHoaDonModel(int id)
+        public async Task<ActionResult<HoaDon>> GetHoaDonModel(int id)
         {
-            var hoaDonModel = await _context.HoaDonModel.FindAsync(id);
+            var hoaDonModel = await _context.im_Invoice.FindAsync(id);
 
             if (hoaDonModel == null)
             {
@@ -46,7 +42,7 @@ namespace Web_API_v1.Areas.Api
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHoaDonModel(int id, HoaDonModel hoaDonModel)
+        public async Task<IActionResult> PutHoaDonModel(int id, HoaDon hoaDonModel)
         {
             if (id != hoaDonModel.ID)
             {
@@ -78,9 +74,9 @@ namespace Web_API_v1.Areas.Api
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<HoaDonModel>> PostHoaDonModel(HoaDonModel hoaDonModel)
+        public async Task<ActionResult<HoaDon>> PostHoaDonModel(HoaDon hoaDonModel)
         {
-            _context.HoaDonModel.Add(hoaDonModel);
+            _context.im_Invoice.Add(hoaDonModel);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetHoaDonModel", new { id = hoaDonModel.ID }, hoaDonModel);
@@ -89,16 +85,16 @@ namespace Web_API_v1.Areas.Api
 
         // DELETE: api/HoaDonAPI/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<HoaDonModel>> DeleteHoaDonModel(int id)
+        public async Task<ActionResult<HoaDon>> DeleteHoaDonModel(int id)
         {
-            var hoaDonModel = await _context.HoaDonModel.FindAsync(id);
+            var hoaDonModel = await _context.im_Invoice.FindAsync(id);
             hoaDonModel.TrangThai = 0;
             if (hoaDonModel == null)
             {
                 return NotFound();
             }
 
-            _context.HoaDonModel.Update(hoaDonModel);
+            _context.im_Invoice.Update(hoaDonModel);
             await _context.SaveChangesAsync();
 
             return hoaDonModel;
@@ -106,7 +102,7 @@ namespace Web_API_v1.Areas.Api
 
         private bool HoaDonModelExists(int id)
         {
-            return _context.HoaDonModel.Any(e => e.ID == id);
+            return _context.im_Invoice.Any(e => e.ID == id);
         }
 
     }

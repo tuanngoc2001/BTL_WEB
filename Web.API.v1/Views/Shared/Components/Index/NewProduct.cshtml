@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Web_Data.SanPham>
+
+<div class="new-arrivals-w3agile">
+    <div class="container">
+        <h2 class="tittle">New PRODUCTS</h2>
+        <div class="arrivals-grids">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3 arrival-grid simpleCart_shelfItem">
+                    <div class="grid-arr">
+
+                        <div class="grid-arrival">
+                            <figure>
+                                <a href="#" class="new-gri" data-toggle="modal" data-target="#myModal1">
+                                    <div class="grid-img">
+                                        <img src="~/images/@item.Image" class="img-responsive" alt="">
+                                    </div>
+                                    <div class="grid-img">
+                                        <img src="~/images/@item.Image_List" class="img-responsive" alt="">
+                                    </div>
+                                </a>
+                            </figure>
+                        </div>
+                        <div class="ribben">
+                            <p>NEW</p>
+                        </div>
+                        <div class="ribben1">
+                            <p>SALE</p>
+                        </div>
+                        <div class="block">
+                            <div class="starbox small ghosting"> </div>
+                        </div>
+                        <div class="women">
+                            <h6><a href="~/pages/single/@item.ID">@item.TenSP</a></h6>
+                            <span class="size">@item.Size</span>
+                            <p><del>@item.Gia VND</del><em class="item_price">@item.GiaMoi VND  </em></p>
+                            <a asp-route="addcart"
+                               asp-route-productid="@item.ID" data-text="Add To Cart" class="my-cart-b item_add">Add To Cart</a>
+                        </div>
+                    </div>
+
+                </div>
+            }
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".ajax-add-to-cart").click(function () {
+                $.ajax({
+                    url: "/Cart/Buy",
+                    data: {
+                        id: $(this).data("id"),
+                        SoLuong: 1,
+                        type: "ajax"
+                    },
+                    success: function (data) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thêm giỏ hàng thành công',
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                        console.log(data.soLuong);
+                        $("#cart_count").html(data.soLuong);
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Thêm giỏ hàng thất bại',
+                            text: 'Vui lòng thử lại',
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

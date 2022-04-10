@@ -4,15 +4,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-
+using Web_Data;
 namespace Web_API_v1.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class HoaDonController : Controller
     {
-        private readonly Webbanhang _context;
+        private readonly ImDbContext _context;
 
-        public HoaDonController(Webbanhang context)
+        public HoaDonController(ImDbContext context)
         {
             _context = context;
         }
@@ -44,7 +44,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
         //}
         public async Task<IActionResult> Index()
         {
-            ViewData["User_ID"] = new SelectList(_context.Set<UserModel>(), "ID", "UserName");
+            ViewData["User_ID"] = new SelectList(_context.Set<User>(), "ID", "UserName");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var hoaDonModel = await _context.HoaDonModel
+            var hoaDonModel = await _context.im_Invoice
                 .Include(h => h.User)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (hoaDonModel == null)
@@ -71,7 +71,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
         // GET: Admin/HoaDon/Create
         public IActionResult Create()
         {
-            ViewData["User_ID"] = new SelectList(_context.Set<UserModel>(), "ID", "ID");
+            ViewData["User_ID"] = new SelectList(_context.Set<User>(), "ID", "ID");
             return View();
         }
 
@@ -80,9 +80,9 @@ namespace Web_API_v1.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,User_ID,HoTen,Sdt,ThanhTien,TrangThai")] HoaDonModel hoaDonModel, [Bind("ID,HoaDon_ID,TenSP,SoLuong,Gia,KhuyenMai,ThanhTien,TrangThai")] ChiTietHoaDonModel chitiethoaDonModel)
+        public async Task<IActionResult> Create([Bind("ID,User_ID,HoTen,Sdt,ThanhTien,TrangThai")] HoaDon hoaDonModel, [Bind("ID,HoaDon_ID,TenSP,SoLuong,Gia,KhuyenMai,ThanhTien,TrangThai")] ChiTietHoaDon chitiethoaDonModel)
         {
-            var HoaDon = from m in _context.HoaDonModel
+            var HoaDon = from m in _context.im_Invoice
                          select m;
             int size = HoaDon.Count();
             if (ModelState.IsValid)
@@ -97,7 +97,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 var url = Url.RouteUrl(new { area = "", controller = "Pages", action = "Index" });
                 return Redirect(url);
             }
-            ViewData["User_ID"] = new SelectList(_context.Set<UserModel>(), "ID", "ID", hoaDonModel.User_ID);
+            ViewData["User_ID"] = new SelectList(_context.Set<User>(), "ID", "ID", hoaDonModel.User_ID);
             return View(hoaDonModel);
         }
 
@@ -109,12 +109,12 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var hoaDonModel = await _context.HoaDonModel.FindAsync(id);
+            var hoaDonModel = await _context.im_Invoice.FindAsync(id);
             if (hoaDonModel == null)
             {
                 return NotFound();
             }
-            ViewData["User_ID"] = new SelectList(_context.Set<UserModel>(), "ID", "ID", hoaDonModel.User_ID);
+            ViewData["User_ID"] = new SelectList(_context.Set<User>(), "ID", "ID", hoaDonModel.User_ID);
             return View(hoaDonModel);
         }
 
@@ -123,7 +123,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,User_ID,HoTen,Sdt,ThanhTien,TrangThai")] HoaDonModel hoaDonModel)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,User_ID,HoTen,Sdt,ThanhTien,TrangThai")] HoaDon hoaDonModel)
         {
             if (id != hoaDonModel.ID)
             {
@@ -150,7 +150,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["User_ID"] = new SelectList(_context.Set<UserModel>(), "ID", "ID", hoaDonModel.User_ID);
+            ViewData["User_ID"] = new SelectList(_context.Set<User>(), "ID", "ID", hoaDonModel.User_ID);
             return View(hoaDonModel);
         }
 
@@ -162,7 +162,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var hoaDonModel = await _context.HoaDonModel
+            var hoaDonModel = await _context.im_Invoice
                 .Include(h => h.User)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (hoaDonModel == null)
@@ -178,15 +178,15 @@ namespace Web_API_v1.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var hoaDonModel = await _context.HoaDonModel.FindAsync(id);
-            _context.HoaDonModel.Remove(hoaDonModel);
+            var hoaDonModel = await _context.im_Invoice.FindAsync(id);
+            _context.im_Invoice.Remove(hoaDonModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool HoaDonModelExists(int id)
         {
-            return _context.HoaDonModel.Any(e => e.ID == id);
+            return _context.im_Invoice.Any(e => e.ID == id);
         }
     }
 }
