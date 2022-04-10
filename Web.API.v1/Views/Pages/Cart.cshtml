@@ -31,7 +31,7 @@
             <tr>
                 <td>@(stt++)</td>
                 <td>@cartitem.SanPham.TenSP</td>
-                <td> <img src="~/images/@cartitem.SanPham.Image" style="height:200px" class="img-responsive" alt=""></td>
+                <td> <img src="~/Assets/images/@cartitem.SanPham.Image" style="height:200px" class="img-responsive" alt=""></td>
                 <td>@(cartitem.SanPham.Gia.ToString("n0"))</td>
                 <td><input asp-for="@cartitem.Quantity" id="@($"quantity-{cartitem.SanPham.ID}")" /></td>
                 <td>@(thanhtien.ToString("n0"))</td>
