@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Web_Common;
+using Web_Data.Extensions;
 
 namespace Web_Data
 {
@@ -18,9 +19,10 @@ namespace Web_Data
         public virtual DbSet<SanPham> im_Product { get; set; }
         public virtual DbSet<User> im_User { get; set; }
         
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating( ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Seed();
         }
     }
 }
