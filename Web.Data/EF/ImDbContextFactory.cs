@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 namespace Web_Data.EF
 {
     public class ImDbContextFactory : IDesignTimeDbContextFactory<ImDbContext>
-
     {
         public ImDbContext CreateDbContext(string[] args)
         {
@@ -20,7 +19,6 @@ namespace Web_Data.EF
                .AddJsonFile("appsettings.json")
                .Build();
             var optionsBuilder = new DbContextOptionsBuilder<ImDbContext>();
-
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("MyDb"));
             return new ImDbContext(optionsBuilder.Options);
         }

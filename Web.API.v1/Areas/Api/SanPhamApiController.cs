@@ -72,15 +72,14 @@ namespace Web_API_v1.Areas.Api
             return NoContent();
         }
 
-        // POST: api/SanPhamApi
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+      
         [HttpPost]
         public async Task<ActionResult<SanPham>> PostSanPhamModel(SanPham sanPhamModel, IFormFile ful, IFormFile ful1)
         {
             _context.im_Product.Add(sanPhamModel);
             await _context.SaveChangesAsync();
             //dat lai ten file hinh theo ID
+            //daojn cuối là lấy ra đuoi(tách ra 2 chuỗi cách nhau bởi dấu chấm)
             string s = sanPhamModel.ID + "." + ful.FileName.Split(".")[ful.FileName.Split(".").Length - 1];
             //Di chuyen file hinh den folder khac
             var path = Path.Combine(
@@ -92,6 +91,7 @@ namespace Web_API_v1.Areas.Api
             //dat lai ten file hinh theo ID
             string s1 = sanPhamModel.ID + "2nd" + "." + ful1.FileName.Split(".")[ful1.FileName.Split(".").Length - 1];
             //Di chuyen file hinh den folder khac
+            //kết hợp ba chuỗi thành 1 đường dẫn
             var path1 = Path.Combine(
                 Directory.GetCurrentDirectory(), "wwwroot/images/", s1);
             using (var stream1 = new FileStream(path1, FileMode.Create))

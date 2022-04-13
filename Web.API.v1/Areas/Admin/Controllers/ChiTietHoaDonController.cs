@@ -18,9 +18,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
         {
             _context = context;
         }
-
-        // GET: Admin/ChiTietHoaDon
-        public async Task<IActionResult> Index() //(int searchInt)
+        public async Task<IActionResult> Index()
         {
             /*
             IQueryable<int> genreQuery = from m in _context.ChiTietHoaDonModel
@@ -77,9 +75,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Admin/ChiTietHoaDon/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,HoaDon_ID,TenSP,SoLuong,Gia,KhuyenMai,ThanhTien")] ChiTietHoaDon chiTietHoaDonModel)
@@ -110,10 +106,6 @@ namespace Web_API_v1.Areas.Admin.Controllers
             ViewData["HoaDon_ID"] = new SelectList(_context.im_Invoice, "ID", "ID", chiTietHoaDonModel.HoaDon_ID);
             return View(chiTietHoaDonModel);
         }
-
-        // POST: Admin/ChiTietHoaDon/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,HoaDon_ID,TenSP,SoLuong,Gia,KhuyenMai,ThanhTien")] ChiTietHoaDon chiTietHoaDonModel)
@@ -165,8 +157,6 @@ namespace Web_API_v1.Areas.Admin.Controllers
 
             return View(chiTietHoaDonModel);
         }
-
-        // POST: Admin/ChiTietHoaDon/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

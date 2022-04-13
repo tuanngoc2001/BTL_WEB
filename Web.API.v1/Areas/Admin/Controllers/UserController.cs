@@ -55,16 +55,14 @@ namespace Web_API_v1.Areas.Admin.Controllers
 
 
 
-        // POST: Admin/User/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,UserName,Password,HoTen,DiaChi,Email,Sdt,Loai,TrangThai")] User userModel)
         {
             if (ModelState.IsValid)
             {
-                userModel.Password = CreateMd5(userModel.Password);
+
+                userModel.Password = StringProcessing.CreateMD5Hash(userModel.Password);
                 _context.Add(userModel);
                 await _context.SaveChangesAsync();
                 var url = Url.RouteUrl("", new { Controller = "Pages", action = "Index", area = "" });
@@ -73,20 +71,20 @@ namespace Web_API_v1.Areas.Admin.Controllers
             return View(userModel);
         }
 
-        public static string CreateMd5(string input)
-        {
-            MD5 md5 = System.Security.Cryptography.MD5.Create();
-            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
-            byte[] hasBytes = md5.ComputeHash(inputBytes);
+        //public static string CreateMd5(string input)
+        //{
+        //    MD5 md5 = System.Security.Cryptography.MD5.Create();
+        //    byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+        //    byte[] hasBytes = md5.ComputeHash(inputBytes);
 
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < hasBytes.Length; i++)
-            {
-                sb.Append(hasBytes[i].ToString("X2"));
-            }
-            return sb.ToString();
-        }
-        // GET: Admin/User/Edit/5
+        //    StringBuilder sb = new StringBuilder();
+        //    for (int i = 0; i < hasBytes.Length; i++)
+        //    {
+        //        sb.Append(hasBytes[i].ToString("X2"));
+        //    }
+        //    return sb.ToString();
+        //}
+       
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -102,9 +100,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
             return View(userModel);
         }
 
-        // POST: Admin/User/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+     
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,UserName,Password,HoTen,DiaChi,Email,Sdt,Loai,TrangThai")] User userModel)
@@ -137,7 +133,6 @@ namespace Web_API_v1.Areas.Admin.Controllers
             return View(userModel);
         }
 
-        // GET: Admin/User/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -155,7 +150,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
             return View(userModel);
         }
 
-        // POST: Admin/User/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

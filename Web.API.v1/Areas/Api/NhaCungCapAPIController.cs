@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -17,14 +18,12 @@ namespace Web_API_v1.Areas.Api
             _context = context;
         }
 
-        // GET: api/NhaCungCaPAPI
+       
         [HttpGet]
         public async Task<ActionResult<IEnumerable<NhaCungCap>>> GetNhaCungCapModel()
         {
             return await _context.im_Supplier.ToListAsync();
         }
-
-        // GET: api/NhaCungCaPAPI/5
         [HttpGet("{id}")]
         public async Task<ActionResult<NhaCungCap>> GetNhaCungCapModel(int id)
         {
@@ -38,9 +37,7 @@ namespace Web_API_v1.Areas.Api
             return nhaCungCapModel;
         }
 
-        // PUT: api/NhaCungCaPAPI/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        
         [HttpPut("{id}")]
         public async Task<IActionResult> PutNhaCungCapModel(int id, NhaCungCap nhaCungCapModel)
         {
@@ -55,7 +52,7 @@ namespace Web_API_v1.Areas.Api
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception e)
             {
                 if (!NhaCungCapModelExists(id))
                 {
@@ -70,9 +67,7 @@ namespace Web_API_v1.Areas.Api
             return NoContent();
         }
 
-        // POST: api/NhaCungCaPAPI
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        
         [HttpPost]
         public async Task<ActionResult<NhaCungCap>> PostNhaCungCapModel(NhaCungCap nhaCungCapModel)
         {
@@ -82,7 +77,7 @@ namespace Web_API_v1.Areas.Api
             return CreatedAtAction("GetNhaCungCapModel", new { id = nhaCungCapModel.ID }, nhaCungCapModel);
         }
 
-        // DELETE: api/NhaCungCaPAPI/5
+        
         [HttpDelete("{id}")]
         public async Task<ActionResult<NhaCungCap>> DeleteNhaCungCapModel(int id)
         {

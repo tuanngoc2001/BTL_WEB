@@ -36,9 +36,7 @@ namespace Web_API_v1.Areas.Api
             return loaiSanPhamModel;
         }
 
-        // PUT: api/LoaiSanPhamApi/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+      
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLoaiSanPhamModel(int id, LoaiSanPham loaiSanPhamModel)
         {
@@ -67,10 +65,6 @@ namespace Web_API_v1.Areas.Api
 
             return NoContent();
         }
-
-        // POST: api/LoaiSanPhamApi
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         public async Task<ActionResult<LoaiSanPham>> PostLoaiSanPhamModel(LoaiSanPham loaiSanPhamModel)
         {

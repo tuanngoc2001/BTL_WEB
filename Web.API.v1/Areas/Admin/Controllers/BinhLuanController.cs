@@ -18,14 +18,14 @@ namespace Web_API_v1.Areas.Admin.Controllers
             _context = context;
         }
 
-        // GET: Admin/BinhLuan
+       
         public async Task<IActionResult> Index()
         {
             var webbanhang = _context.im_Comment.Include(b => b.User);
             return View(await webbanhang.ToListAsync());
         }
 
-        // GET: Admin/BinhLuan/Details/5
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,20 +44,19 @@ namespace Web_API_v1.Areas.Admin.Controllers
             return View(binhLuanModel);
         }
 
-        // GET: Admin/BinhLuan/Create
+        //chưa hiểu
         public IActionResult Create()
         {
             ViewData["User_ID"] = new SelectList(_context.im_User, "ID", "ID");
             return View();
         }
 
-        // POST: Admin/BinhLuan/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //day nua
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("id,User_ID,SanPham_ID,NoiDung,NgayDang,TrangThai")] BinhLuan binhLuanModel)
         {
+            //quá trình 
             if (ModelState.IsValid)
             {
                 _context.Add(binhLuanModel);
@@ -68,7 +67,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
             return View(binhLuanModel);
         }
 
-        // GET: Admin/BinhLuan/Edit/5
+       
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

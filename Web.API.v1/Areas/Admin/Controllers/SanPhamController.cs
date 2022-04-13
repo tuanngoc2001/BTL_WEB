@@ -25,6 +25,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
         // GET: Admin/SanPham
         public async Task<IActionResult> Index(string searchString)
         {
+            //lấy ra toàn bộ các tên sp
             IQueryable<string> genreQuery = from m in _context.im_Product select m.TenSP;
             var sanphams = from m in _context.im_Product
                            select m;

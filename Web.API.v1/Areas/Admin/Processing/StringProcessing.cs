@@ -9,6 +9,7 @@ namespace Web_API_v1.Areas.Admin
 {
     public class StringProcessing
     {
+        //tạo mã md5
         public static string CreateMD5Hash(string input)
         {
             MD5 md5 = System.Security.Cryptography.MD5.Create();

@@ -43,12 +43,7 @@ namespace Web_API_v1.Controllers
             ViewBag.Username = HttpContext.Session.GetString("username");
             return View();
         }
-        [HttpPost]
-        public JsonResult LoginFB(string name)
-        {
-            HttpContext.Session.SetString("username", name);
-            return Json(new { success = "True" });
-        }
+       
         [HttpPost]
         public JsonResult LogOut()
         {

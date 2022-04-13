@@ -47,9 +47,6 @@ namespace Web_API_v1.Areas.Admin.Controllers
             ViewData["User_ID"] = new SelectList(_context.Set<User>(), "ID", "UserName");
             return View();
         }
-
-
-        // GET: Admin/HoaDon/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -75,9 +72,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Admin/HoaDon/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,User_ID,HoTen,Sdt,ThanhTien,TrangThai")] HoaDon hoaDonModel, [Bind("ID,HoaDon_ID,TenSP,SoLuong,Gia,KhuyenMai,ThanhTien,TrangThai")] ChiTietHoaDon chitiethoaDonModel)
@@ -118,9 +113,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
             return View(hoaDonModel);
         }
 
-        // POST: Admin/HoaDon/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,User_ID,HoTen,Sdt,ThanhTien,TrangThai")] HoaDon hoaDonModel)

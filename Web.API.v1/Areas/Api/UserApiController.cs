@@ -16,15 +16,11 @@ namespace Web_API_v1.Areas.Api
         {
             _context = context;
         }
-
-        // GET: api/UserApi
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUserModel()
         {
             return await _context.im_User.ToListAsync();
         }
-
-        // GET: api/UserApi/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUserModel(int id)
         {
@@ -38,9 +34,7 @@ namespace Web_API_v1.Areas.Api
             return userModel;
         }
 
-        // PUT: api/UserApi/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+       
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUserModel(int id, User userModel)
         {
@@ -70,19 +64,16 @@ namespace Web_API_v1.Areas.Api
             return NoContent();
         }
 
-        // POST: api/UserApi
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+       
         [HttpPost]
         public async Task<ActionResult<User>> PostUserModel(User userModel)
         {
             _context.im_User.Add(userModel);
             await _context.SaveChangesAsync();
-
+            //tao ra phan hoi status 201
+            //"trả về một resouse khi vưaf đc tạo thafnh công
             return CreatedAtAction("GetUserModel", new { id = userModel.ID }, userModel);
         }
-
-        // DELETE: api/UserApi/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> DeleteUserModel(int id)
         {

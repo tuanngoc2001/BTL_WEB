@@ -17,14 +17,12 @@ namespace Web_API_v1.Areas.Api
             _context = context;
         }
 
-        // GET: api/HoaDonAPI
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HoaDon>>> GetHoaDonModel()
         {
             return await _context.im_Invoice.ToListAsync();
         }
-
-        // GET: api/HoaDonAPI/5
         [HttpGet("{id}")]
         public async Task<ActionResult<HoaDon>> GetHoaDonModel(int id)
         {
@@ -37,10 +35,6 @@ namespace Web_API_v1.Areas.Api
 
             return hoaDonModel;
         }
-
-        // PUT: api/HoaDonAPI/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutHoaDonModel(int id, HoaDon hoaDonModel)
         {
@@ -48,7 +42,7 @@ namespace Web_API_v1.Areas.Api
             {
                 return BadRequest();
             }
-
+            //check model mà mình request
             _context.Entry(hoaDonModel).State = EntityState.Modified;
 
             try
@@ -70,9 +64,6 @@ namespace Web_API_v1.Areas.Api
             return NoContent();
         }
 
-        // POST: api/HoaDonAPI
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         public async Task<ActionResult<HoaDon>> PostHoaDonModel(HoaDon hoaDonModel)
         {
