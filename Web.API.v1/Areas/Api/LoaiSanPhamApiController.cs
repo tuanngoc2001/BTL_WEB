@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -45,13 +46,13 @@ namespace Web_API_v1.Areas.Api
                 return BadRequest();
             }
 
-            _context.Entry(loaiSanPhamModel).State = EntityState.Modified;
+            _context.im_Product_Type.Update(loaiSanPhamModel);
 
             try
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception e)
             {
                 if (!LoaiSanPhamModelExists(id))
                 {
@@ -78,14 +79,14 @@ namespace Web_API_v1.Areas.Api
         [HttpDelete("{id}")]
         public async Task<ActionResult<LoaiSanPham>> DeleteLoaiSanPhamModel(int id)
         {
-            var loaiSanPhamModel = await _context.im_Product_Type.FindAsync(id);
+            var loaiSanPhamModel = await _context.im_Product_Type.SingleOrDefaultAsync(p=>p.ID==id);
             loaiSanPhamModel.TrangThai = "0";
             if (loaiSanPhamModel == null)
             {
                 return NotFound();
             }
 
-            _context.Entry(loaiSanPhamModel).State = EntityState.Modified;
+            _context.im_Product_Type.Remove(loaiSanPhamModel);
             await _context.SaveChangesAsync();
 
             return loaiSanPhamModel;

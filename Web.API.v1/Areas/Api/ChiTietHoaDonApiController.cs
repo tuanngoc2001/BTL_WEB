@@ -1,30 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Web_Business.ViewComponents;
 using Web_Data;
 namespace Web_API_v1.Areas.Api
 {
     [Route("api/[controller]/[action]")]
-    [ApiController]
+    [ApiController] 
     public class ChiTietHoaDonApiController : ControllerBase
     {
         private readonly ImDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ChiTietHoaDonApiController(ImDbContext context)
+        public ChiTietHoaDonApiController(ImDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
-
-        // GET: api/ChiTietHoaDonApi
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ChiTietHoaDon>>> GetChiTietHoaDonModel()
         {
             return await _context.im_Invoice_Detail.ToListAsync();
         }
-
-        // GET: api/ChiTietHoaDonApi/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ChiTietHoaDon>> GetChiTietHoaDonModel(int id)
         {
@@ -38,9 +39,7 @@ namespace Web_API_v1.Areas.Api
             return chiTietHoaDonModel;
         }
 
-        // PUT: api/ChiTietHoaDonApi/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+       
         [HttpPut("{id}")]
         public async Task<IActionResult> PutChiTietHoaDonModel(int id, ChiTietHoaDon chiTietHoaDonModel)
         {
@@ -48,14 +47,14 @@ namespace Web_API_v1.Areas.Api
             {
                 return BadRequest();
             }
-
-            _context.Entry(chiTietHoaDonModel).State = EntityState.Modified;
-
+            
             try
             {
+                
+                _context.im_Invoice_Detail.Update(chiTietHoaDonModel);
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception e)
             {
                 if (!ChiTietHoaDonModelExists(id))
                 {
@@ -63,7 +62,7 @@ namespace Web_API_v1.Areas.Api
                 }
                 else
                 {
-                    throw;
+                    throw ;
                 }
             }
 
@@ -76,11 +75,9 @@ namespace Web_API_v1.Areas.Api
         {
             _context.im_Invoice_Detail.Add(chiTietHoaDonModel);
             await _context.SaveChangesAsync();
-
+            //trả về một status code 201 resouse thành công
             return CreatedAtAction("GetChiTietHoaDonModel", new { id = chiTietHoaDonModel.ID }, chiTietHoaDonModel);
         }
-
-        // DELETE: api/ChiTietHoaDonApi/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<ChiTietHoaDon>> DeleteChiTietHoaDonModel(int id)
         {
@@ -92,8 +89,8 @@ namespace Web_API_v1.Areas.Api
                 return NotFound();
             }
 
-            _context.Entry(chiTietHoaDonModel).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            _context.im_Invoice_Detail.Remove(chiTietHoaDonModel);
+             await _context.SaveChangesAsync();
 
             return chiTietHoaDonModel;
         }

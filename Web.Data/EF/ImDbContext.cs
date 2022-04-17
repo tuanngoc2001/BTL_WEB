@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Web_Common;
-using Web_Data.Extensions;
+
 
 namespace Web_Data
 {
@@ -22,7 +22,7 @@ namespace Web_Data
         protected override void OnModelCreating( ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Seed();
+            
         }
     }
 }

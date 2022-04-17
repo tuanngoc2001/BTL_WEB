@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web_Data;
@@ -11,10 +12,12 @@ namespace Web_API_v1.Areas.Api
     public class UserApiController : ControllerBase
     {
         private readonly ImDbContext _context;
+        private readonly IMapper _mapper;
 
-        public UserApiController(ImDbContext context)
+        public UserApiController(ImDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUserModel()
@@ -43,10 +46,11 @@ namespace Web_API_v1.Areas.Api
                 return BadRequest();
             }
 
-            _context.Entry(userModel).State = EntityState.Modified;
+            
 
             try
             {
+                _context.im_User.Update(userModel);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)

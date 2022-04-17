@@ -21,6 +21,7 @@ namespace Web_Data
         public virtual SanPham SanPham { set; get; }
         public string NoiDung { set; get; }
         public DateTime NgayDang { set; get; }
+        
         public int TrangThai { set; get; }
     }
 }

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 using Web_Data;
+using Web_Common.Utils;
+
 namespace Web_API_v1.Areas.Api
 {
     [Route("api/[controller]/[action]")]
@@ -21,28 +23,27 @@ namespace Web_API_v1.Areas.Api
 
         // GET: api/SanPhamApi
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SanPham>>> GetSanPhamModel()
+        public async Task<PagedList<SanPham>> GetSanPhamModel()
         {
-            return await _context.im_Product.ToListAsync();
+            var result=await _context.im_Product.ToListAsync();
+            return new PagedList<SanPham>(result,5,5,5);
         }
 
         // GET: api/SanPhamApi/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<SanPham>> GetSanPhamModel(int id)
+        public async Task<PagedList<SanPham>> GetSanPhamModel(int id)
         {
-            var sanPhamModel = await _context.im_Product.FindAsync(id);
+            var sanPhamModel = await _context.im_Product.Where(p => p.ID == id).ToListAsync();
 
             if (sanPhamModel == null)
             {
-                return NotFound();
+                return null;
             }
 
-            return sanPhamModel;
+            return new PagedList<SanPham>(sanPhamModel, 5, 5, 5);
         }
 
-        // PUT: api/SanPhamApi/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSanPhamModel(int id, SanPham sanPhamModel)
         {
@@ -50,9 +51,9 @@ namespace Web_API_v1.Areas.Api
             {
                 return BadRequest();
             }
-
-            _context.Entry(sanPhamModel).State = EntityState.Modified;
-
+            
+            _context.im_Product.Update(sanPhamModel);
+            await _context.SaveChangesAsync();
             try
             {
                 await _context.SaveChangesAsync();

@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Serilog;
+using System;
 using Web_API_v1;
 
 namespace Web.API.v1
@@ -8,7 +10,18 @@ namespace Web.API.v1
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            ConfigureLogger();
+            Log.Information("Application Started");
+            try
+            {
+                CreateHostBuilder(args).Build().Run();
+            }
+            catch (Exception e)
+            {
+                Log.CloseAndFlush();
+                Log.Error(e, "loi");
+            }
+            
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -17,5 +30,15 @@ namespace Web.API.v1
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+        public static void ConfigureLogger()
+        {
+            Log.Logger = new LoggerConfiguration()
+                
+                .WriteTo.File("log/Log.txt", restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information,
+                rollingInterval: RollingInterval.Day)
+                .WriteTo.File("log/error.txt", restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Warning)
+
+                .CreateLogger();
+        }
     }
 }

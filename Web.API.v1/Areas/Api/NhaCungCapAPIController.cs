@@ -45,7 +45,6 @@ namespace Web_API_v1.Areas.Api
             {
                 return BadRequest();
             }
-
             _context.Entry(nhaCungCapModel).State = EntityState.Modified;
 
             try

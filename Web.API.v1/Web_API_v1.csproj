@@ -472,6 +472,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.15" />
@@ -484,10 +485,13 @@
     <PackageReference Include="MvcHaack.Ajax" Version="1.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="PusherServer" Version="4.2.0" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Web.Business\Web_Business.csproj" />
+    <ProjectReference Include="..\Web.Common\Web_Common.csproj" />
     <ProjectReference Include="..\Web.Data\Web_Data.csproj" />
   </ItemGroup>
 

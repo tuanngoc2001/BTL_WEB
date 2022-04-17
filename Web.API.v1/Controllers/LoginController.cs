@@ -18,7 +18,7 @@ namespace Web_API_v1.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public IActionResult Login([Bind("UserName,Password")] User member)
+        public IActionResult Login( User member)
 
         {
             var r = _context.im_User.Where(m => (m.UserName == member.UserName && m.Password == StringProcessing.CreateMD5Hash(member.Password))).ToList();

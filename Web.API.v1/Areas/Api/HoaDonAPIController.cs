@@ -43,7 +43,17 @@ namespace Web_API_v1.Areas.Api
                 return BadRequest();
             }
             //check model mà mình request
-            _context.Entry(hoaDonModel).State = EntityState.Modified;
+            var hoadon = new HoaDon()
+            {
+                ID = hoaDonModel.ID,
+                User_ID = hoaDonModel.User_ID,
+                HoTen = hoaDonModel.HoTen,
+                Sdt = hoaDonModel.Sdt,
+                ThanhTien = hoaDonModel.ThanhTien
+
+            };
+            _context.im_Invoice.Update(hoadon);
+            
 
             try
             {

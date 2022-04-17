@@ -88,7 +88,7 @@ namespace Web_API_v1.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,User_ID,SanPham_ID,NoiDung,NgayDang,TrangThai")] BinhLuan binhLuanModel)
+        public async Task<IActionResult> Edit(int id, BinhLuan binhLuanModel)
         {
             if (id != binhLuanModel.id)
             {
