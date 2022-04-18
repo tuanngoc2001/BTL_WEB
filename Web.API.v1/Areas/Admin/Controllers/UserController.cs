@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Web_Data;
 using System.Security.Cryptography;
 using System.Text;
+using Web_API_v1.Models;
 
 namespace Web_API_v1.Areas.Admin.Controllers
 {
@@ -161,6 +162,23 @@ namespace Web_API_v1.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPut]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(int id, ForgotPasswordModel model)
+        {
+            var user = await _context.im_User.FirstOrDefaultAsync(u => u.ID == id);
+            if(user.Password == StringProcessing.CreateMD5Hash(model.Password))
+            {                
+                if(model.NewPassword == model.NewPasswordConfirm)
+                {
+                    user.Password = StringProcessing.CreateMD5Hash(model.NewPassword);
+                }                
+            }
+            _context.im_User.Update(user);
+            await _context.SaveChangesAsync();
+            var url = Url.RouteUrl("", new { Controller = "Login", action = "Index", area = "" });
+            return Redirect(url);
+        }
         private bool UserModelExists(int id)
         {
             return _context.im_User.Any(e => e.ID == id);

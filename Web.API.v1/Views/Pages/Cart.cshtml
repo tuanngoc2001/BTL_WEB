@@ -27,7 +27,7 @@
             <tr>
                 <td>@(stt++)</td>
                 <td>@cartitem.SanPham.TenSP</td>
-                <td> <img src="~/Assets/images/@cartitem.SanPham.Image" style="height:200px" class="img-responsive" alt=""></td>
+                <td> <img src="~/images/@cartitem.SanPham.Image" style="height:200px" class="img-responsive" alt=""></td>
                 <td>@(cartitem.SanPham.Gia.ToString("n0"))</td>
                 <td><input asp-for="@cartitem.Quantity" id="@($"quantity-{cartitem.SanPham.ID}")" /></td>
                 <td>@(thanhtien.ToString("n0"))</td>
@@ -38,13 +38,13 @@
                     </button>
                     <a asp-route="removecart" asp-route-productid="@cartitem.SanPham.ID"
                        class="btn btn-danger">Delete</a>
+                    <a asp-controller="Pages" asp-action="Checkout" class="btn btn-success">Checkout</a>
                 </td>
             </tr>
         }
 
     </table>
-
-    <a asp-controller="Pages" asp-action="Checkout" class="btn btn-success">Checkout</a>
+  
 
     @section Scripts {
         <script>
