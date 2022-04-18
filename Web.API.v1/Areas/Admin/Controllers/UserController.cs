@@ -62,7 +62,6 @@ namespace Web_API_v1.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 userModel.Password = StringProcessing.CreateMD5Hash(userModel.Password);
                 _context.Add(userModel);
                 await _context.SaveChangesAsync();

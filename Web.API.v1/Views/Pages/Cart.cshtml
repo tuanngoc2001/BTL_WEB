@@ -32,19 +32,13 @@
                 <td><input asp-for="@cartitem.Quantity" id="@($"quantity-{cartitem.SanPham.ID}")" /></td>
                 <td>@(thanhtien.ToString("n0"))</td>
                 <td>
-                    <button class="btn btn-success updatecartitem"
-                            data-productid="@cartitem.SanPham.ID">
-                        Update
-                    </button>
-                    <a asp-route="removecart" asp-route-productid="@cartitem.SanPham.ID"
-                       class="btn btn-danger">Delete</a>
-                    <a asp-controller="Pages" asp-action="Checkout" class="btn btn-success">Checkout</a>
+                    <button class="btn btn-success updatecartitem" data-productid="@cartitem.SanPham.ID">Update</button>
+                    <a asp-route="removecart" asp-route-productid="@cartitem.SanPham.ID" class="btn btn-danger">Delete</a>
+                    <a asp-controller="Pages" asp-action="Checkout" class="btn btn-success">Order</a>
                 </td>
             </tr>
         }
-
-    </table>
-  
+    </table>  
 
     @section Scripts {
         <script>

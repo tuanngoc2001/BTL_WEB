@@ -110,9 +110,11 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#pablo">
-                            <span class="no-icon">Log out</span>
-                        </a>
+                        <a class="nav-link">
+                            <li><a href="#">@ViewBag.Username</a></li>
+                            <li><a onclick="DeleteSession()" href="javascript:">Log out</a></li>
+                    @*<span class="no-icon" asp-controller="Login" asp-action="LogOut">Log out</span>*@
+                    @*</a*@>
                     </li>
                 </ul>
             </div>

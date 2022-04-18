@@ -40,13 +40,14 @@ namespace Web_API_v1
                 options.Cookie.IsEssential = true;
             });
             services.AddAuthentication()
+                .AddFacebook()
                 .AddGoogle(options =>
                 {
                     var gconfig = Configuration.GetSection("Authentication:Google");
                     options.ClientId = gconfig["ClientId"];
                     options.ClientSecret = gconfig["ClientSecret"];
                     options.CallbackPath = gconfig["CallbackPath"];
-                });
+                });            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

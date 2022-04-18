@@ -3,7 +3,7 @@
 <div class="login">
     <div class="main-agileits">
         <div class="form-w3agile">
-            <h3>Login To Phone Shop</h3>
+            <h3>Login</h3>
             <form method="post">
                 <div class="key">
                     <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -17,16 +17,18 @@
                 </div>
                 <input type="submit" asp-action="Login">
             </form>
+            <div>
+                <a class="btn btn-success" href=""><i class="fa fa-google"></i>&nbsp;&nbsp;Google</a>
+                <a class="btn btn-success" href=""><i class="fa fa-facebook"></i>&nbsp;&nbsp;Facebook</a>
+            </div>
         </div>
+        </br>
         <div class="forg">
-            <a asp-area="Admin" asp-controller="User" asp-action="ForgotPassword" class="forg-left">Forgot Password</a>
+            <a asp-area="Admin" asp-controller="User" asp-action="ForgotPassword" class="forg-left" style="margin-right:auto">Forgot Password</a>
             <a asp-area="Admin" asp-controller="User" asp-action="Create" class="forg-right">Register</a>
            
             <div class="clearfix"></div>
         </div>
-        <div id="fb-root">
-        </div>
-        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v9.0&appId=250620996446716&autoLogAppEvents=1" nonce="P7yrjRmc"></script>
         
     </div>
 
